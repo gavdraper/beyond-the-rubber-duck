@@ -3,6 +3,7 @@ Build out your custom instruction files
     In Project (Source control)
     and Personal Home directory
 Copilot not Pilot.
+Tell the Agent what tools you have (CLI, MCP etc...)
 ALWAYS take the free review
 Use as a learning tool
 Don't trust anything
