@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding with AI</title>
+    <title>Coding Workflows</title>
     <style>
         * {
             margin: 0;
@@ -83,7 +83,7 @@
             position: relative;
         }
 
-        .coding-info {
+        .workflow-info {
             max-width: 1000px;
             margin: 0 auto;
             width: 100%;
@@ -91,7 +91,7 @@
 
         .intro-section {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .main-title {
@@ -112,32 +112,39 @@
             font-weight: 400;
         }
 
-        .qualities-container {
+        .workflows-container {
             position: relative;
             padding: 20px 0;
         }
 
-        .qualities-grid {
+        .workflows-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: 30px;
             margin: 0 auto;
-            max-width: 900px;
+            max-width: 1100px;
         }
 
-        .quality-box {
+        .workflow-box {
             background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
             border: 1px solid #dee2e6;
             border-radius: 20px;
-            padding: 40px 25px;
-            text-align: center;
+            padding: 25px 30px;
+            text-align: left;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .quality-box::before {
+        .workflow-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .workflow-box::before {
             content: '';
             position: absolute;
             top: 0;
@@ -149,47 +156,79 @@
             transition: transform 0.4s ease;
         }
 
-        .quality-box:hover::before {
+        .workflow-box:hover::before {
             transform: scaleX(1);
         }
 
-        .quality-box:hover {
+        .workflow-box:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 15px 40px rgba(253, 126, 20, 0.15);
             border-color: rgba(253, 126, 20, 0.3);
         }
 
-        .quality-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
+        .workflow-icon {
+            font-size: 1.8rem;
+            margin-right: 12px;
+            display: inline;
         }
 
-        .quality-box:nth-child(1) .quality-icon {
+        .workflow-box:nth-child(1) .workflow-icon {
             color: #28a745;
         }
 
-        .quality-box:nth-child(2) .quality-icon {
+        .workflow-box:nth-child(2) .workflow-icon {
             color: #fd7e14;
         }
 
-        .quality-box:nth-child(3) .quality-icon {
+        .workflow-box:nth-child(3) .workflow-icon {
             color: #dc3545;
         }
 
-        .quality-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #343a40;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
+        .workflow-box:nth-child(4) .workflow-icon {
+            color: #6f42c1;
         }
 
-        .quality-description {
+        .workflow-box:nth-child(5) .workflow-icon {
+            color: #20c997;
+        }
+
+        .workflow-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .workflow-description {
             font-size: 0.95rem;
             color: #6c757d;
             line-height: 1.6;
             font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .workflow-steps {
+            list-style: none;
+            padding: 0;
+        }
+
+        .workflow-steps li {
+            font-size: 0.9rem;
+            color: #495057;
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .workflow-steps li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #fd7e14;
+            font-weight: bold;
         }
 
         .decorative-bg {
@@ -261,6 +300,13 @@
             }
         }
 
+        @media (max-width: 968px) {
+            .workflows-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 900px;
+            }
+        }
+
         @media (max-width: 768px) {
             .slide {
                 width: 95vw;
@@ -275,7 +321,7 @@
                 padding: 30px 30px 80px 30px;
             }
 
-            .qualities-grid {
+            .workflows-grid {
                 grid-template-columns: 1fr;
                 gap: 25px;
                 max-width: 400px;
@@ -295,39 +341,44 @@
 <body>
     <div class="slide">
         <div class="header">
-            <h1 class="title">Coding</h1>
-            <p class="subtitle">Practical AI Development Techniques</p>
+            <h1 class="title">Coding Workflows</h1>
+            <p class="subtitle">Efficient Development Patterns with AI</p>
         </div>
 
         <div class="content">
             <div class="decorative-bg"></div>
-            <div class="coding-info">
-                <div class="intro-section">
-                    <h2 class="main-title">Meet Your AI Coding Assistant</h2>
-                    <p class="subtitle-text">A fresh perspective on development with three defining characteristics</p>
-                </div>
-                <div class="qualities-container">
-                    <div class="qualities-grid">
-                        <div class="quality-box">
-                            <span class="quality-icon">⚡</span>
-                            <div class="quality-title">Over Enthusiastic</div>
-                            <div class="quality-description">Ready to tackle any coding challenge with boundless energy and excitement!</div>
+            <div class="workflow-info">
+                <div class="workflows-container">
+                    <div class="workflows-grid">
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">⚡</span> Break Prompts Down</div>
+                            <div class="workflow-description">Break prompts down into the smallest tasks you can, then
+                                make them smaller</div>
                         </div>
-                        <div class="quality-box">
-                            <span class="quality-icon">🎯</span>
-                            <div class="quality-title">Desperate to Please</div>
-                            <div class="quality-description">Always eager to help and make sure every requirement is met perfectly.</div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">📋</span> Persist Plans</div>
+                            <div class="workflow-description">Ask for a plan to be persisted to a markdown file with
+                                checkboxes</div>
                         </div>
-                        <div class="quality-box">
-                            <span class="quality-icon">🎓</span>
-                            <div class="quality-title">Straight Out of College</div>
-                            <div class="quality-description">Fresh perspective with the latest knowledge and eagerness to impress.</div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">🔍</span> Be Critical of Plans</div>
+                            <div class="workflow-description">Be very critical of the plan</div>
+                        </div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">🎯</span> Be Specific</div>
+                            <div class="workflow-description">Be very specific</div>
+                        </div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">🌐</span> Provide Maximum Context</div>
+                            <div class="workflow-description">Give as much context as possible, specify files where you
+                                can, the AI can go and search a project but its context window is limited so it will
+                                just sample and miss context</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="nav-buttons">
             <button class="nav-btn" onclick="goToPrevious()">
                 <span>←</span>
@@ -341,6 +392,14 @@
     </div>
 
     <script>
+        let currentStep = 0;
+        const totalSteps = 5; // Number of workflow boxes
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show first item immediately
+            showWorkflowBox(0);
+        });
+
         document.addEventListener('keydown', function (e) {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
@@ -351,12 +410,25 @@
             }
         });
 
+        function showWorkflowBox(index) {
+            const boxes = document.querySelectorAll('.workflow-box');
+            if (boxes[index]) {
+                boxes[index].classList.add('visible');
+            }
+        }
+
         function goToPrevious() {
-            window.location.href = '../02-tools/03-custom-instructions-best-practices.html';
+            window.location.href = '04-coding.html';
         }
 
         function goToNext() {
-            window.location.href = '04-coding-workflows.html';
+            if (currentStep < totalSteps - 1) {
+                currentStep++;
+                showWorkflowBox(currentStep);
+            } else {
+                // All items are visible, go to next slide
+                window.location.href = '04-coding-demo.html';
+            }
         }
     </script>
 </body>
