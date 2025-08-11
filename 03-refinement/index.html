@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using AI for Refinement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 90vw;
+            height: 85vh;
+            max-width: 1200px;
+            max-height: 675px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+
+        .header {
+            padding: 60px 80px 40px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+            border-bottom: 1px solid #e0e6ff;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #4a5568;
+            text-align: center;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .content {
+            flex: 1;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .refinement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .refinement-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e6ff;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .refinement-card:nth-child(2) { animation-delay: 0.2s; }
+        .refinement-card:nth-child(3) { animation-delay: 0.4s; }
+        .refinement-card:nth-child(4) { animation-delay: 0.6s; }
+
+        .refinement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .key-benefits {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .key-benefits h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .benefits-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 1.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 2.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 3.5s; }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                width: 95vw;
+                height: 90vh;
+            }
+
+            .header, .content {
+                padding: 40px 40px;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .refinement-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .benefits-list {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Using AI for Refinement</h1>
+            <p class="subtitle">Iterative Improvement & Code Enhancement</p>
+        </div>
+        
+        <div class="content">
+            <div class="refinement-grid">
+                <div class="refinement-card">
+                    <span class="card-icon">🔍</span>
+                    <h3 class="card-title">Code Analysis</h3>
+                    <p class="card-description">AI examines existing code to identify patterns, inefficiencies, and improvement opportunities across your codebase.</p>
+                </div>
+                
+                <div class="refinement-card">
+                    <span class="card-icon">⚡</span>
+                    <h3 class="card-title">Performance Optimization</h3>
+                    <p class="card-description">Automatically suggest and implement performance enhancements, reducing bottlenecks and improving execution speed.</p>
+                </div>
+                
+                <div class="refinement-card">
+                    <span class="card-icon">🛡️</span>
+                    <h3 class="card-title">Security Hardening</h3>
+                    <p class="card-description">Identify and fix security vulnerabilities, implement best practices, and strengthen defensive mechanisms.</p>
+                </div>
+                
+                <div class="refinement-card">
+                    <span class="card-icon">📐</span>
+                    <h3 class="card-title">Architecture Refinement</h3>
+                    <p class="card-description">Restructure code for better maintainability, scalability, and adherence to design patterns and principles.</p>
+                </div>
+            </div>
+            
+            <div class="key-benefits">
+                <h3>Key Benefits</h3>
+                <div class="benefits-list">
+                    <span class="benefit-item">Faster Iterations</span>
+                    <span class="benefit-item">Higher Quality Code</span>
+                    <span class="benefit-item">Reduced Technical Debt</span>
+                    <span class="benefit-item">Enhanced Maintainability</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.refinement-card');
+            
+            cards.forEach((card, index) => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add click animation for benefit items
+            const benefitItems = document.querySelectorAll('.benefit-item');
+            benefitItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    this.style.background = 'rgba(255, 255, 255, 0.4)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                        this.style.background = 'rgba(255, 255, 255, 0.2)';
+                    }, 150);
+                });
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.body.style.filter = 'blur(0px)';
+                }
+            });
+
+            // Add subtle mouse parallax effect
+            document.addEventListener('mousemove', function(e) {
+                const slide = document.querySelector('.slide');
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                const rotateX = (mouseY - 0.5) * 2;
+                const rotateY = (mouseX - 0.5) * 2;
+                
+                slide.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            // Reset transform when mouse leaves
+            document.addEventListener('mouseleave', function() {
+                const slide = document.querySelector('.slide');
+                slide.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
