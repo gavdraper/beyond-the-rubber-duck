@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,9 +24,9 @@
 
         .slide {
             width: 90vw;
-            height: 85vh;
+            height: 98vh;
             max-width: 1200px;
-            max-height: 675px;
+            max-height: 850px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
@@ -86,7 +87,6 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
-            margin-bottom: 35px;
         }
 
         .refinement-card {
@@ -104,19 +104,38 @@
             overflow: hidden;
         }
 
-        .refinement-card:nth-child(2) { animation-delay: 0.2s; }
-        .refinement-card:nth-child(3) { animation-delay: 0.4s; }
-        .refinement-card:nth-child(4) { animation-delay: 0.6s; }
+        .refinement-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .refinement-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .refinement-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
 
         .refinement-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .refinement-card:nth-child(1) { border-left-color: #28a745; }
-        .refinement-card:nth-child(2) { border-left-color: #fd7e14; }
-        .refinement-card:nth-child(3) { border-left-color: #dc3545; }
-        .refinement-card:nth-child(4) { border-left-color: #6f42c1; }
+        .refinement-card:nth-child(1) {
+            border-left-color: #28a745;
+        }
+
+        .refinement-card:nth-child(2) {
+            border-left-color: #fd7e14;
+        }
+
+        .refinement-card:nth-child(3) {
+            border-left-color: #dc3545;
+        }
+
+        .refinement-card:nth-child(4) {
+            border-left-color: #6f42c1;
+        }
 
         .refinement-card::before {
             content: '';
@@ -158,43 +177,43 @@
             font-size: 0.9rem;
         }
 
-        .key-benefits {
-            background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+        .next-button {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #fd7e14, #e67e22);
             color: white;
-            padding: 18px;
-            border-radius: 8px;
-            text-align: center;
-            animation: fadeInUp 1s ease-out 0.8s both;
-            box-shadow: 0 4px 16px rgba(33, 37, 41, 0.3);
-        }
-
-        .key-benefits h3 {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
             font-weight: 600;
-        }
-
-        .benefits-list {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
+            align-items: center;
+            gap: 8px;
+            animation: fadeInUp 1s ease-out 1s both;
         }
 
-        .benefit-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.2s ease;
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
+            background: linear-gradient(135deg, #e67e22, #d35400);
         }
+
+        .next-button:active {
+            transform: translateY(0);
+        }
+
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -206,6 +225,7 @@
                 opacity: 0;
                 transform: translateY(50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -219,7 +239,8 @@
                 height: 90vh;
             }
 
-            .header, .content {
+            .header,
+            .content {
                 padding: 40px 40px;
             }
 
@@ -239,64 +260,60 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="slide">
         <div class="header">
-            <h1 class="title">Using AI for Refinement</h1>
-            <p class="subtitle">Iterative Improvement & Code Enhancement</p>
+            <h1 class="title">AI-Powered Ticket Refinement</h1>
+            <p class="subtitle">Transform User Stories into Ready-to-Develop Requirements</p>
         </div>
-        
+
         <div class="content">
             <div class="refinement-grid">
                 <div class="refinement-card">
-                    <span class="card-icon">🔍</span>
-                    <h3 class="card-title">Code Analysis</h3>
-                    <p class="card-description">AI examines existing code to identify patterns, inefficiencies, and improvement opportunities across your codebase.</p>
+                    <span class="card-icon">✅</span>
+                    <h3 class="card-title">Definition of Ready</h3>
+                    <p class="card-description">AI validates tickets meet DoR criteria: clear requirements, sized appropriately, dependencies identified, and acceptance criteria defined.</p>
                 </div>
-                
+
                 <div class="refinement-card">
-                    <span class="card-icon">⚡</span>
-                    <h3 class="card-title">Performance Optimization</h3>
-                    <p class="card-description">Automatically suggest and implement performance enhancements, reducing bottlenecks and improving execution speed.</p>
+                    <span class="card-icon">📋</span>
+                    <h3 class="card-title">Acceptance Criteria & Test Cases</h3>
+                    <p class="card-description">Generate comprehensive "Given-When-Then" scenarios and edge cases, ensuring complete test coverage and clear validation criteria.</p>
                 </div>
-                
+
                 <div class="refinement-card">
-                    <span class="card-icon">🛡️</span>
-                    <h3 class="card-title">Security Hardening</h3>
-                    <p class="card-description">Identify and fix security vulnerabilities, implement best practices, and strengthen defensive mechanisms.</p>
+                    <span class="card-icon">👤</span>
+                    <h3 class="card-title">User Story Enhancement</h3>
+                    <p class="card-description">Transform basic requirements into well-structured "As a [user], I want [goal] so that [benefit]" format with clear persona definitions.</p>
                 </div>
-                
+
                 <div class="refinement-card">
-                    <span class="card-icon">📐</span>
-                    <h3 class="card-title">Architecture Refinement</h3>
-                    <p class="card-description">Restructure code for better maintainability, scalability, and adherence to design patterns and principles.</p>
+                    <span class="card-icon">⚙️</span>
+                    <h3 class="card-title">Requirements Analysis</h3>
+                    <p class="card-description">Identify and document functional & non-functional requirements, technical constraints, performance criteria, and integration needs.</p>
                 </div>
             </div>
             
-            <div class="key-benefits">
-                <h3>Key Benefits</h3>
-                <div class="benefits-list">
-                    <span class="benefit-item">Faster Iterations</span>
-                    <span class="benefit-item">Higher Quality Code</span>
-                    <span class="benefit-item">Reduced Technical Debt</span>
-                    <span class="benefit-item">Enhanced Maintainability</span>
-                </div>
-            </div>
+            <button class="next-button" onclick="goToNextSlide()">
+                See Example
+                <span>→</span>
+            </button>
         </div>
     </div>
 
     <script>
         // Add some interactive animations
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.refinement-card');
-            
+
             cards.forEach((card, index) => {
-                card.addEventListener('mouseenter', function() {
+                card.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-10px) scale(1.02)';
                 });
-                
-                card.addEventListener('mouseleave', function() {
+
+                card.addEventListener('mouseleave', function () {
                     this.style.transform = 'translateY(0) scale(1)';
                 });
             });
@@ -304,7 +321,7 @@
             // Add click animation for benefit items
             const benefitItems = document.querySelectorAll('.benefit-item');
             benefitItems.forEach(item => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', function () {
                     this.style.transform = 'scale(0.95)';
                     this.style.background = 'rgba(255, 255, 255, 0.4)';
                     setTimeout(() => {
@@ -315,14 +332,22 @@
             });
 
             // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
                     document.body.style.filter = 'blur(0px)';
+                }
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    goToNextSlide();
                 }
             });
 
             // Subtle hover effects for professional presentation
         });
+
+        function goToNextSlide() {
+            window.location.href = './transformation.html';
+        }
     </script>
 </body>
+
 </html>
