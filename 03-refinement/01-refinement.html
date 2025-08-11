@@ -177,11 +177,19 @@
             font-size: 0.9rem;
         }
 
-        .next-button {
+
+        .nav-buttons {
             position: absolute;
             bottom: 30px;
+            left: 30px;
             right: 30px;
-            background: linear-gradient(135deg, #fd7e14, #e67e22);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -190,21 +198,26 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
             display: flex;
             align-items: center;
             gap: 8px;
-            animation: fadeInUp 1s ease-out 1s both;
         }
 
-        .next-button:hover {
+        .nav-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
-            background: linear-gradient(135deg, #e67e22, #d35400);
+            box-shadow: 0 6px 18px rgba(108, 117, 125, 0.4);
+            background: linear-gradient(135deg, #5a6268, #495057);
         }
 
-        .next-button:active {
-            transform: translateY(0);
+        .nav-btn.next {
+            background: linear-gradient(135deg, #fd7e14, #e67e22);
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+        }
+
+        .nav-btn.next:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
         }
 
 
@@ -295,9 +308,15 @@
                     <p class="card-description">Identify and document functional & non-functional requirements, technical constraints, performance criteria, and integration needs.</p>
                 </div>
             </div>
-            
-            <button class="next-button" onclick="goToNextSlide()">
-                See Example
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPrevious()">
+                <span>←</span>
+                Back
+            </button>
+            <button class="nav-btn next" onclick="goToNextSlide()">
+                Next
                 <span>→</span>
             </button>
         </div>
@@ -338,14 +357,20 @@
                 }
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     goToNextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    goToPrevious();
                 }
             });
 
             // Subtle hover effects for professional presentation
         });
 
+        function goToPrevious() {
+            window.location.href = '../02-tools/02-tools.html';
+        }
+
         function goToNextSlide() {
-            window.location.href = './transformation.html';
+            window.location.href = './02-refinement.html';
         }
     </script>
 </body>
