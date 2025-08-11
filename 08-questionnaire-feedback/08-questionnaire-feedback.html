@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistant</title>
+    <title>Questionnaire & Feedback</title>
     <style>
         * {
             margin: 0;
@@ -80,57 +80,19 @@
             flex-direction: column;
             justify-content: center;
             background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            text-align: center;
         }
 
-        .assistant-layout {
-            display: flex;
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-            align-items: flex-start;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .assistant-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid;
-            transition: all 0.3s ease;
-            animation: slideInUp 0.6s ease-out;
-        }
-
-        .assistant-card:nth-child(1) {
-            border-left-color: #28a745;
-        }
-
-        .assistant-card:nth-child(2) {
-            border-left-color: #fd7e14;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .card-icon {
-            font-size: 1.8rem;
-            margin-right: 15px;
-        }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
+        .content h2 {
+            font-size: 2rem;
             color: #212529;
-            margin: 0;
+            margin-bottom: 30px;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            line-height: 1.6;
         }
 
         .nav-buttons {
@@ -191,18 +153,6 @@
             }
         }
 
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @media (max-width: 768px) {
             .slide {
                 width: 95vw;
@@ -217,11 +167,6 @@
             .title {
                 font-size: 2.5rem;
             }
-
-            .assistant-layout {
-                flex-direction: column;
-                gap: 20px;
-            }
         }
     </style>
 </head>
@@ -229,30 +174,13 @@
 <body>
     <div class="slide">
         <div class="header">
-            <h1 class="title">Assistant</h1>
-            <p class="subtitle">AI as Your Development Assistant</p>
+            <h1 class="title">Questionnaire & Feedback</h1>
+            <p class="subtitle">Your Thoughts and Experiences</p>
         </div>
 
         <div class="content">
-            <div class="assistant-layout">
-                <div class="main-content">
-                    <div class="assistant-card">
-                        <div class="card-header">
-                            <span class="card-icon">📊</span>
-                            <h3 class="card-title">Grafana Queries</h3>
-                        </div>
-                        <p>Generate complex monitoring queries and dashboards with AI assistance</p>
-                    </div>
-
-                    <div class="assistant-card">
-                        <div class="card-header">
-                            <span class="card-icon">🎓</span>
-                            <h3 class="card-title">Learning</h3>
-                        </div>
-                        <p>Use AI to accelerate learning new technologies and frameworks</p>
-                    </div>
-                </div>
-            </div>
+            <h2>Share Your Experience</h2>
+            <p>This is where we'll gather your feedback and insights about AI-powered development tools and practices.</p>
         </div>
         
         <div class="nav-buttons">
@@ -268,6 +196,7 @@
     </div>
 
     <script>
+        // Keyboard navigation
         document.addEventListener('keydown', function (e) {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
@@ -279,11 +208,11 @@
         });
 
         function goToPrevious() {
-            window.location.href = '../07-debugging/07-debugging.html';
+            window.location.href = '../08-assistant/08-assistant.html';
         }
 
         function goToNext() {
-            window.location.href = '../08-questionnaire-feedback/08-questionnaire-feedback.html';
+            window.location.href = '../10-final-thoughts/10-final-thoughts.html';
         }
     </script>
 </body>
