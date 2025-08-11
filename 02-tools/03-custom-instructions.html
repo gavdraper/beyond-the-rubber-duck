@@ -352,57 +352,48 @@
                             </div>
                             <p class="card-description">Project-level instructions that your team shares via source
                                 control. These override global settings and provide project-specific context.</p>
-                            <div class="example-code"># Claude Code Project
-                                ./CLAUDE.md
-                                📚 <a href="https://docs.anthropic.com/en/docs/claude-code/memory"
-                                    style="color: #fd7e14;">Claude Code Memory Docs</a>
-
-                                # GitHub Copilot Project
-                                ./.github/copilot-instructions.md
-                                📚 <a href="https://code.visualstudio.com/docs/copilot/copilot-customization"
-                                    style="color: #fd7e14;">VS Code Copilot Docs</a>
-
-                                ./.github/instructions/instructions.md
-                                📚 <a
-                                    href="https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot"
-                                    style="color: #fd7e14;">GitHub Copilot Repository Instructions</a>
-
-                                # Gemini Project
-                                ./GEMINI.md
-                                📚 <a
-                                    href="https://medium.com/google-cloud/practical-gemini-cli-bring-your-own-system-instruction-19ea7f07faa2"
-                                    style="color: #fd7e14;">Gemini CLI Instructions</a>
-
-                                ./.gemini/config.yaml
-                                📚 <a
-                                    href="https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github"
-                                    style="color: #fd7e14;">Gemini Code Assist Config</a>
-
-                                ./.gemini/styleguide.md
-                                📚 <a
-                                    href="https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github"
-                                    style="color: #fd7e14;">Gemini Style Guide</a>
-
-                                # Other Tools
-                                ./.cursorrules (Cursor)
-                                ./.continuerc.json (Continue)</div>
+                            <div class="example-code">Claude Code ./CLAUDE.md 📚 <a href="https://docs.anthropic.com/en/docs/claude-code/memory" style="color: #fd7e14;">Docs</a><br>
+GitHub Copilot ./.github/copilot-instructions.md 📚 <a href="https://code.visualstudio.com/docs/copilot/copilot-customization" style="color: #fd7e14;">Docs</a><br>
+GitHub Copilot ./.github/instructions/instructions.md 📚 <a href="https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot" style="color: #fd7e14;">Docs</a><br>
+Gemini ./GEMINI.md 📚 <a href="https://medium.com/google-cloud/practical-gemini-cli-bring-your-own-system-instruction-19ea7f07faa2" style="color: #fd7e14;">Docs</a></div>
                         </div>
                     </div>
 
                     <div class="sidebar">
                         <h3 class="sidebar-title">
-                            <span class="sidebar-icon">📋</span>
-                            File Priority Hierarchy
+                            <span class="sidebar-icon">⚡</span>
+                            Sample CLAUDE.md
                         </h3>
-                        <ul class="benefits-list">
-                            <li>Project-specific instructions (highest priority)</li>
-                            <li>User global settings (lower priority)</li>
-                            <li>Files auto-load on AI tool startup</li>
-                            <li>Project files shared via git</li>
-                            <li>Global files for personal preferences</li>
-                            <li>Maximum import depth: 5 levels</li>
-                            <li>Use @import to reference other files</li>
-                        </ul>
+                        <div style="font-size: 0.75rem; line-height: 1.4; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <h4 style="margin: 0 0 10px 0; color: #28a745; font-size: 0.9rem;">Coding Behaviors</h4>
+                            <p style="margin: 0 0 8px 0; font-weight: 600;">ALWAYS exhibit the following behaviors</p>
+                            <ul style="margin: 0 0 12px 0; padding-left: 15px; list-style: disc;">
+                                <li>write clean code that complies with SOLID principles</li>
+                                <li>write tests at the most appropriate level</li>
+                                <li>NEVER remove a failing test just because you can't make it pass</li>
+                                <li>create classes in their own files</li>
+                                <li>before bringing in a new library ask me first</li>
+                            </ul>
+                            
+                            <p style="margin: 0 0 8px 0; font-weight: 600;">After completing a task ALWAYS do the following</p>
+                            <ul style="margin: 0 0 12px 0; padding-left: 15px; list-style: disc;">
+                                <li>run a clean build and check it passes</li>
+                                <li>run ALL tests not just the ones close to the changes</li>
+                                <li>run a security review of changes</li>
+                                <li>run a code review on changes</li>
+                            </ul>
+                            
+                            <h4 style="margin: 0 0 8px 0; color: #28a745; font-size: 0.9rem;">Project Details</h4>
+                            <p style="margin: 0 0 8px 0;"><strong>Tech Stack:</strong> .NET 8, ASP.NET Core, Entity Framework</p>
+                            
+                            <p style="margin: 0 0 5px 0; font-weight: 600;">Commands:</p>
+                            <ul style="margin: 0; padding-left: 15px; list-style: disc;">
+                                <li>Build: <code>dotnet build</code></li>
+                                <li>Clean: <code>dotnet clean</code></li>
+                                <li>Run: <code>dotnet run</code></li>
+                                <li>Test: <code>dotnet test</code></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
