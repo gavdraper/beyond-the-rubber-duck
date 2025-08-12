@@ -26,25 +26,6 @@
             justify-content: center;
             overflow: hidden;
         }
-
-        @media (max-width: 768px) {
-            .transformation-container {
-                flex-direction: column;
-                gap: 30px;
-            }
-
-            .arrow-container .arrow {
-                transform: rotate(90deg);
-            }
-
-            .content {
-                padding: 30px 40px;
-            }
-
-            .title {
-                font-size: 2rem;
-            }
-        }
     </style>
 </head>
 
@@ -80,53 +61,53 @@
             <!-- Stage 2: Output -->
             <div class="stage output-stage" id="stage2">
                 <div class="output-content">
-                        <div
-                            style="background: #e3f2fd; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
-                            <strong>🎯 STORY 1/5</strong>
+                    <div
+                        style="background: #e3f2fd; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+                        <strong>🎯 STORY 1/5</strong>
+                    </div>
+
+                    <div class="story-section">
+                        <div class="section-title">Story</div>
+                        <div class="section-content">
+                            <strong>As a</strong> social media user, <br /><strong>I want</strong> to see a
+                            notification when new posts are available <br /><strong>so that</strong> I can choose to
+                            refresh my feed without missing recent content.
                         </div>
+                    </div>
 
-                        <div class="story-section">
-                            <div class="section-title">Story</div>
-                            <div class="section-content">
-                                <strong>As a</strong> social media user, <br /><strong>I want</strong> to see a
-                                notification when new posts are available <br /><strong>so that</strong> I can choose to
-                                refresh my feed without missing recent content.
-                            </div>
+                    <div class="story-section">
+                        <div class="section-title">Acceptance Criteria</div>
+                        <div class="section-content">
+                            <strong>Given</strong> new posts exist, <br />
+                            <strong>when</strong> I'm viewing the feed, <br />
+                            <strong>then</strong> a notification banner appears at the top
+                            <br /><br />
+                            <strong>Given</strong> the notification is shown, <br />
+                            <strong>when</strong> I press ".", <br />
+                            <strong>then</strong> the page scrolls to top and refreshes posts
+
+                            <br />...
+
                         </div>
+                    </div>
 
-                        <div class="story-section">
-                            <div class="section-title">Acceptance Criteria</div>
-                            <div class="section-content">
-                                <strong>Given</strong> new posts exist, <br />
-                                <strong>when</strong> I'm viewing the feed, <br />
-                                <strong>then</strong> a notification banner appears at the top
-                                <br /><br />
-                                <strong>Given</strong> the notification is shown, <br />
-                                <strong>when</strong> I press ".", <br />
-                                <strong>then</strong> the page scrolls to top and refreshes posts
-
-                                <br />...
-
-                            </div>
+                    <div class="story-section">
+                        <div class="section-title">Test Cases</div>
+                        <div class="section-content">
+                            <ul>
+                                <li>Unit tests verify notification component renders correctly</li>
+                                <li>Integration tests confirm WebSocket real-time updates work</li>
+                                <li>E2E tests validate keyboard shortcut functionality</li>
+                                <li>Performance tests ensure <2s notification display</li>
+                                <li>...</li>
+                            </ul>
                         </div>
-
-                        <div class="story-section">
-                            <div class="section-title">Test Cases</div>
-                            <div class="section-content">
-                                <ul>
-                                    <li>Unit tests verify notification component renders correctly</li>
-                                    <li>Integration tests confirm WebSocket real-time updates work</li>
-                                    <li>E2E tests validate keyboard shortcut functionality</li>
-                                    <li>Performance tests ensure <2s notification display</li>
-                                    <li>...</li>
-                                </ul>
-                            </div>
-                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
-        
+
         <div class="nav-buttons">
             <button class="nav-btn" onclick="goToPrevious()">
                 <span>←</span>
@@ -167,7 +148,7 @@
         function goToPrevious() {
             const currentStage = document.querySelector('.stage.active');
             const currentId = currentStage.id;
-            
+
             if (currentId === 'stage2') {
                 showStage('stage1');
             } else if (currentId === 'stage1') {
@@ -178,13 +159,12 @@
         function goToNext() {
             const currentStage = document.querySelector('.stage.active');
             const currentId = currentStage.id;
-            
+
             if (currentId === 'stage1') {
                 showOutput();
             } else if (currentId === 'stage2') {
                 // Navigate to next slide in presentation
-                // You can update this URL as needed
-                alert('End of this section - add next slide URL here');
+                window.location.href = '../04-coding/04-coding.html';
             }
         }
 
