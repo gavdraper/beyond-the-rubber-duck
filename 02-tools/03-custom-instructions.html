@@ -6,6 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Instructions for AI Tools</title>
     <link rel="stylesheet" href="../main.css">
+    <style>
+        .instruction-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .instruction-card.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .instruction-card.visible:hover {
+            transform: translateY(-8px) scale(1.02) !important;
+        }
+
+        .sidebar {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sidebar.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Override no-animations for essential visibility */
+        .no-animations .instruction-card.visible,
+        .no-animations .sidebar.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            transition: none !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -123,8 +154,117 @@
 
     <script src="../main.js"></script>
     <script>
-        // Set navigation for this specific slide
+        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
+        const totalSteps = 3; // Number of items (2 instruction cards + 1 sidebar)
+
+        // Immediately force cards and sidebar to be hidden before any other code runs
+        const style = document.createElement('style');
+        style.innerHTML = '.instruction-card, .sidebar { opacity: 0 !important; transform: translateY(30px) !important; }';
+        document.head.appendChild(style);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Force all cards and sidebar to hidden state first
+            const cards = document.querySelectorAll('.instruction-card');
+            const sidebar = document.querySelector('.sidebar');
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.classList.remove('visible');
+            });
+            
+            if (sidebar) {
+                sidebar.style.opacity = '0';
+                sidebar.style.transform = 'translateY(30px)';
+                sidebar.classList.remove('visible');
+            }
+
+            // Check if we should skip animations and show all items
+            const urlParams = new URLSearchParams(window.location.search);
+            const skipAnimations = urlParams.get('skipAnimations') === 'true';
+            
+            // Also check if the global no-animations class is applied (from main.js)
+            const hasNoAnimations = document.body.classList.contains('no-animations');
+            
+            if (skipAnimations || hasNoAnimations) {
+                // Show all items immediately
+                cards.forEach(card => {
+                    card.style.transition = 'none'; // Disable transitions
+                    card.classList.add('visible');
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                });
+                
+                if (sidebar) {
+                    sidebar.style.transition = 'none';
+                    sidebar.classList.add('visible');
+                    sidebar.style.opacity = '1';
+                    sidebar.style.transform = 'translateY(0)';
+                }
+                
+                currentStep = totalSteps - 1; // Set to last step
+                
+                // Clean up URL parameter if present
+                if (skipAnimations) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('skipAnimations');
+                    window.history.replaceState({}, '', url);
+                }
+            } else {
+                // Normal visit - show first item immediately
+                currentStep = 0;
+                showInstructionCard(0);
+            }
+        });
+
+        // Set navigation paths for main.js to handle
         setSlideNavigation('./02-tools.html', './03-custom-instructions-best-practices.html');
+
+        // Set custom navigation handlers for internal slide logic
+        setCustomNavigationHandlers(
+            // onNext handler
+            function() {
+                if (currentStep < totalSteps - 1) {
+                    currentStep++;
+                    showInstructionCard(currentStep);
+                    return false; // Handled internally, don't proceed to default navigation
+                } else {
+                    // All items visible, proceed to default navigation (next slide)
+                    return true;
+                }
+            },
+            // onPrevious handler
+            function() {
+                // Always go to previous slide for this workflow
+                return true; // Proceed to default navigation
+            }
+        );
+
+        function showInstructionCard(index) {
+            const cards = document.querySelectorAll('.instruction-card');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (index < cards.length && cards[index]) {
+                // Show instruction card
+                cards[index].classList.add('visible');
+            } else if (index === 2 && sidebar) {
+                // Show sidebar as third item
+                sidebar.classList.add('visible');
+            }
+        }
+
+        function showAllInstructionCards() {
+            const cards = document.querySelectorAll('.instruction-card');
+            const sidebar = document.querySelector('.sidebar');
+            
+            cards.forEach(card => {
+                card.classList.add('visible');
+            });
+            
+            if (sidebar) {
+                sidebar.classList.add('visible');
+            }
+        }
     </script>
 </body>
 

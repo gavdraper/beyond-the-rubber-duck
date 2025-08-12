@@ -25,7 +25,104 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            perspective: 1000px;
         }
+
+        .flip-card {
+            width: 80%;
+            max-width: 900px;
+            height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%);
+            border: 2px solid #ffcdd2;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e8f5e8 100%);
+            border: 2px solid #c8e6c9;
+            transform: rotateY(180deg);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .input-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f44336;
+        }
+
+        .output-content {
+            font-size: 0.95rem;
+        }
+
+        .story-section {
+            margin-bottom: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: #2e7d32;
+        }
+
+        .section-content {
+            line-height: 1.5;
+            color: #424242;
+        }
+
     </style>
 </head>
 
@@ -37,70 +134,82 @@
         </div>
 
         <div class="content">
-            <!-- Stage 1: Input -->
-            <div class="stage input-stage active" id="stage1">
-                <div class="story-card bad-story">
-                    <div class="story-header">
-                        <span class="story-icon">📝</span>
-                        <h3 class="story-title">Input: Poorly Written Story</h3>
+            <div class="flip-card" id="flipCard">
+                <!-- Front face: Input -->
+                <div class="card-face card-front">
+                    <div class="card-header">
+                        <span class="card-icon">📝</span>
+                        <h3 class="card-title">Vague Change Request</h3>
                     </div>
-                    <div class="story-content">
-                        When new posts are created show a notification similar to twitter at the top of the screen to
-                        other users, that notification should say "New Posts, Press . to load", When the user presses .
-                        scroll to the top and refresh the posts
-
-                        Priority: High
+                    <div class="card-content">
+                        <div class="input-content">
+                            When new posts are created show a notification similar to twitter at the top of the screen to
+                            other users, that notification should say "New Posts, Press . to load", When the user presses .
+                            scroll to the top and refresh the posts
+                            <br><br>
+                            Priority: High
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <div style="font-weight: 600; margin-bottom: 8px; color: #1976d2; font-size: 1rem;">
+                                🤖 AI Prompt
+                            </div>
+                            <div style="background: rgba(25, 118, 210, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid #1976d2; font-style: italic; color: #555;">
+                                "Take this feature request, turn it into appropriately sized and separated stories with good descriptions, acceptance criteria and test cases with suggestions for their types"
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-            </div>
 
-            <!-- Stage 2: Output -->
-            <div class="stage output-stage" id="stage2">
-                <div class="output-content">
-                    <div
-                        style="background: #e3f2fd; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
-                        <strong>🎯 STORY 1/5</strong>
+                <!-- Back face: Output -->
+                <div class="card-face card-back">
+                    <div class="card-header">
+                        <span class="card-icon">✨</span>
+                        <h3 class="card-title">Output: Production-Ready Story</h3>
                     </div>
+                    <div class="card-content">
+                        <div class="output-content">
+                            <div style="background: #e3f2fd; padding: 8px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #2196f3;">
+                                <strong>🎯 STORY 1/5 - Real-time Feed Notifications</strong>
+                            </div>
 
-                    <div class="story-section">
-                        <div class="section-title">Story</div>
-                        <div class="section-content">
-                            <strong>As a</strong> social media user, <br /><strong>I want</strong> to see a
-                            notification when new posts are available <br /><strong>so that</strong> I can choose to
-                            refresh my feed without missing recent content.
+                            <div class="story-section">
+                                <div class="section-title">Story</div>
+                                <div class="section-content">
+                                    <strong>As a</strong> social media user, <br /><strong>I want</strong> to see a
+                                    notification when new posts are available <br /><strong>so that</strong> I can choose to
+                                    refresh my feed without missing recent content.
+                                </div>
+                            </div>
+
+                            <div class="story-section">
+                                <div class="section-title">Acceptance Criteria</div>
+                                <div class="section-content">
+                                    <strong>Given</strong> new posts exist, <br />
+                                    <strong>when</strong> I'm viewing the feed, <br />
+                                    <strong>then</strong> a notification banner appears at the top
+                                    <br /><br />
+                                    <strong>Given</strong> no new posts are available, <br />
+                                    <strong>when</strong> I'm viewing the feed, <br />
+                                    <strong>then</strong> no notification banner should be displayed
+                                    <br />...
+                                </div>
+                            </div>
+
+                            <div class="story-section">
+                                <div class="section-title">Test Cases</div>
+                                <div class="section-content">
+                                    <ul>
+                                        <li><strong>Unit:</strong> Verify notification component renders with correct props</li>
+                                        <li><strong>Integration:</strong> Test notification triggers when new posts detected</li>
+                                        <li><strong>E2E:</strong> Validate full user flow - new post creates visible notification</li>
+                                        <li><strong>Manual:</strong> Confirm notification positioning and visual design</li>
+                                        <li>...</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="story-section">
-                        <div class="section-title">Acceptance Criteria</div>
-                        <div class="section-content">
-                            <strong>Given</strong> new posts exist, <br />
-                            <strong>when</strong> I'm viewing the feed, <br />
-                            <strong>then</strong> a notification banner appears at the top
-                            <br /><br />
-                            <strong>Given</strong> the notification is shown, <br />
-                            <strong>when</strong> I press ".", <br />
-                            <strong>then</strong> the page scrolls to top and refreshes posts
-
-                            <br />...
-
-                        </div>
-                    </div>
-
-                    <div class="story-section">
-                        <div class="section-title">Test Cases</div>
-                        <div class="section-content">
-                            <ul>
-                                <li>Unit tests verify notification component renders correctly</li>
-                                <li>Integration tests confirm WebSocket real-time updates work</li>
-                                <li>E2E tests validate keyboard shortcut functionality</li>
-                                <li>Performance tests ensure <2s notification display</li>
-                                <li>...</li>
-                            </ul>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -117,39 +226,27 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        function showStage(stageId) {
-            // Hide all stages
-            document.querySelectorAll('.stage').forEach(stage => {
-                stage.classList.remove('active');
-            });
+        let isFlipped = false;
 
-            // Show the specified stage
-            setTimeout(() => {
-                document.getElementById(stageId).classList.add('active');
-            }, 300);
-        }
-
-        function showProcessing() {
-            showStage('stage2');
-        }
-
-        function showOutput() {
-            showStage('stage2');
-        }
-
-        function resetSlide() {
-            showStage('stage1');
+        function flipCard() {
+            const card = document.getElementById('flipCard');
+            isFlipped = !isFlipped;
+            
+            if (isFlipped) {
+                card.classList.add('flipped');
+            } else {
+                card.classList.remove('flipped');
+            }
         }
 
         function goToPrevious() {
-            const currentStage = document.querySelector('.stage.active');
-            const currentId = currentStage.id;
-
-            if (currentId === 'stage2') {
-                showStage('stage1');
-            } else if (currentId === 'stage1') {
-                // Use the main navigation system for slide-to-slide navigation
+            if (isFlipped) {
+                // If card is flipped, flip it back
+                flipCard();
+            } else {
+                // Navigate to previous slide
                 const previousUrl = './01-refinement.html';
                 const separator = previousUrl.includes('?') ? '&' : '?';
                 const urlWithParam = previousUrl + separator + 'skipAnimations=true';
@@ -158,61 +255,41 @@
         }
 
         function goToNext() {
-            const currentStage = document.querySelector('.stage.active');
-            const currentId = currentStage.id;
-
-            if (currentId === 'stage1') {
-                showOutput();
-            } else if (currentId === 'stage2') {
-                // Navigate to next slide in presentation
+            if (!isFlipped) {
+                // Always flip to show the output on first Next click
+                flipCard();
+            } else {
+                // Navigate to next slide when already flipped
                 window.location.href = '../04-coding/04-coding.html';
             }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.story-card');
-
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-5px) scale(1.02)';
-                    this.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(0) scale(1)';
-                    this.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
-                });
-            });
+            // Check if we should skip animations and show flipped state
+            const urlParams = new URLSearchParams(window.location.search);
+            const skipAnimations = urlParams.get('skipAnimations') === 'true';
+            
+            if (skipAnimations) {
+                // Show flipped state immediately
+                flipCard();
+                
+                // Clean up URL parameter
+                const url = new URL(window.location);
+                url.searchParams.delete('skipAnimations');
+                window.history.replaceState({}, '', url);
+            }
 
             // Keyboard navigation
             document.addEventListener('keydown', function (e) {
-                const currentStage = document.querySelector('.stage.active');
-                const currentId = currentStage.id;
-
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     e.preventDefault();
-                    if (currentId === 'stage1') {
-                        showOutput();
-                    } else if (currentId === 'stage2') {
-                        // Navigate to next slide when at final stage
-                        window.location.href = '../04-coding/04-coding.html';
-                    }
+                    goToNext();
                 } else if (e.key === 'ArrowLeft') {
                     e.preventDefault();
-                    if (currentId === 'stage2') {
-                        showStage('stage1');
-                    } else if (currentId === 'stage1') {
-                        // Navigate to previous slide when at first stage
-                        const previousUrl = './01-refinement.html';
-                        const separator = previousUrl.includes('?') ? '&' : '?';
-                        const urlWithParam = previousUrl + separator + 'skipAnimations=true';
-                        window.location.href = urlWithParam;
-                    }
-                } else if (e.key === 'Home') {
-                    e.preventDefault();
-                    resetSlide();
+                    goToPrevious();
                 }
             });
+
         });
     </script>
 </body>

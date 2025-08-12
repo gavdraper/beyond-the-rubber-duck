@@ -168,8 +168,9 @@
                     window.history.replaceState({}, '', url);
                 }
             } else {
-                // Normal visit - keep items hidden
-                currentStep = -1;
+                // Normal visit - show first item immediately
+                currentStep = 0;
+                showToolCard(0);
             }
         });
 
