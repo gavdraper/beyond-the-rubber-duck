@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging with AI</title>
+    <link rel="stylesheet" href="../main.css">
+    <style>
+        /* Slide-specific styles for debugging */
+        .content {
+            padding: 35px 60px 100px 60px;
+        }
+
+        .debugging-info {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .placeholder-text {
+            font-size: 1.5rem;
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 40px 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Debugging</h1>
+            <p class="subtitle">AI-Powered Problem Solving</p>
+        </div>
+
+        <div class="content">
+            <div class="debugging-info">
+                <div class="placeholder-text">
+                    Content coming soon - debugging techniques and examples
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPrevious()">
+                <span>←</span>
+                Back
+            </button>
+            <button class="nav-btn next" onclick="goToNext()">
+                Next
+                <span>→</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="../main.js"></script>
+    <script>
+        // Set navigation for this specific slide
+        setSlideNavigation('../04-coding/04-coding-demo.html', '../06-review/06-review.html');
+    </script>
+</body>
+
+</html>

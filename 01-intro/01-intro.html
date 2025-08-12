@@ -5,333 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduction to AI-Powered Development</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .slide {
-            width: 90vw;
-            height: 98vh;
-            max-width: 1200px;
-            max-height: 850px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            border: 1px solid #e9ecef;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #28a745, #fd7e14, #dc3545);
-        }
-
-        .header {
-            padding: 40px 60px 30px;
-            background: linear-gradient(135deg, #343a40 0%, #212529 100%);
-            border-bottom: 1px solid #e9ecef;
-            position: relative;
-            color: white;
-        }
-
-        .title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 15px;
-            text-align: center;
-            animation: fadeInUp 1s ease-out;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-weight: 400;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .content {
-            flex: 1;
-            padding: 35px 60px 100px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-        }
-
-        .timeline-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        .timeline-line {
-            position: relative;
-            height: 4px;
-            background: linear-gradient(90deg, #28a745, #fd7e14, #dc3545, #6f42c1);
-            border-radius: 2px;
-            margin: 80px 0 40px 0;
-        }
-
-        .timeline-steps {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            align-items: stretch;
-        }
-
-        .timeline-step {
-            flex: 1;
-            position: relative;
-            text-align: center;
-            max-width: 220px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .step-indicator {
-            position: absolute;
-            top: -82px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 2;
-        }
-
-        .timeline-step:nth-child(1) .step-indicator {
-            background: linear-gradient(135deg, #28a745, #20c997);
-        }
-
-        .timeline-step:nth-child(2) .step-indicator {
-            background: linear-gradient(135deg, #fd7e14, #ffc107);
-        }
-
-        .timeline-step:nth-child(3) .step-indicator {
-            background: linear-gradient(135deg, #dc3545, #e83e8c);
-        }
-
-        .timeline-step:nth-child(4) .step-indicator {
-            background: linear-gradient(135deg, #6f42c1, #6610f2);
-        }
-
-        .timeline-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border-top: 3px solid;
-            transition: all 0.3s ease;
-            animation: slideInUp 0.8s ease-out;
-            position: relative;
-            margin-top: 20px;
-            text-align: left;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .timeline-step:nth-child(1) .timeline-card {
-            border-top-color: #28a745;
-            animation-delay: 0.1s;
-        }
-
-        .timeline-step:nth-child(2) .timeline-card {
-            border-top-color: #fd7e14;
-            animation-delay: 0.3s;
-        }
-
-        .timeline-step:nth-child(3) .timeline-card {
-            border-top-color: #dc3545;
-            animation-delay: 0.5s;
-        }
-
-        .timeline-step:nth-child(4) .timeline-card {
-            border-top-color: #6f42c1;
-            animation-delay: 0.7s;
-        }
-
-        .timeline-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        .step-indicator:hover {
-            transform: translateX(-50%) scale(1.1);
-        }
-
-
-        .card-icon {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .intro-card:hover .card-icon {
-            transform: scale(1.15);
-        }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #212529;
-            margin-bottom: 8px;
-        }
-
-        .card-description {
-            color: #6c757d;
-            line-height: 1.4;
-            font-size: 0.85rem;
-        }
-
-        .nav-buttons {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, #6c757d, #5a6268);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(108, 117, 125, 0.4);
-            background: linear-gradient(135deg, #5a6268, #495057);
-        }
-
-        .nav-btn.next {
-            background: linear-gradient(135deg, #fd7e14, #e67e22);
-            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
-        }
-
-        .nav-btn.next:hover {
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
-        }
-
-        .nav-btn:active {
-            transform: translateY(0);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                width: 95vw;
-                height: 90vh;
-            }
-
-            .header,
-            .content {
-                padding: 40px 40px;
-            }
-
-            .title {
-                font-size: 2.5rem;
-            }
-
-            .timeline-container {
-                padding: 10px 0;
-            }
-
-            .timeline-steps {
-                flex-direction: column;
-                gap: 40px;
-            }
-
-            .timeline-step {
-                max-width: none;
-            }
-
-            .timeline-line {
-                display: none;
-            }
-
-            .step-indicator {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-                margin: 0 auto 15px auto;
-            }
-
-            .timeline-card {
-                margin-top: 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../main.css">
 </head>
 
 <body>
@@ -339,7 +13,7 @@
     <div class="slide">
         <div class="header">
             <h1 class="title">AI in the SDLC</h1>
-            <p class="subtitle">Artificial Intelligence Throughout the Software Development Lifecycle</p>
+            <p class="subtitle">From Skeptic to Believer</p>
         </div>
 
         <div class="content">
@@ -350,7 +24,8 @@
                         <div class="timeline-card">
                             <span class="card-icon">📋</span>
                             <h3 class="card-title">Refinement</h3>
-                            <p class="card-description">Transform vague requirements into well-structured user stories with acceptance criteria, test cases, and definition of ready using AI assistance.</p>
+                            <p class="card-description">Turn descriptions like "Create search endpoint" into clear
+                                user stories with acceptance criteria, test cases, and a definition of ready.</p>
                         </div>
                     </div>
 
@@ -359,7 +34,8 @@
                         <div class="timeline-card">
                             <span class="card-icon">💻</span>
                             <h3 class="card-title">Coding</h3>
-                            <p class="card-description">Accelerate development with AI-powered code generation, intelligent completions, and automated refactoring while maintaining code quality standards.</p>
+                            <p class="card-description">Go from ticket to pull request by pairing with an agent that
+                                helps write, test, and polish your code.</p>
                         </div>
                     </div>
 
@@ -368,7 +44,8 @@
                         <div class="timeline-card">
                             <span class="card-icon">🔍</span>
                             <h3 class="card-title">Review</h3>
-                            <p class="card-description">Enhance code quality through AI-assisted code reviews, security vulnerability detection, and automated compliance checking before deployment.</p>
+                            <p class="card-description">Find and address bugs and style issues with an agent code
+                                review before handing off to a human.</p>
                         </div>
                     </div>
 
@@ -377,14 +54,19 @@
                         <div class="timeline-card">
                             <span class="card-icon">🐛</span>
                             <h3 class="card-title">Debugging</h3>
-                            <p class="card-description">Identify and resolve issues faster with AI-powered error analysis, root cause identification, and suggested fixes for complex problems.</p>
+                            <p class="card-description">Avoid interrupting your flow with web searches, explain the
+                                issue to an agent and receive targeted debugging guidance.</p>
                         </div>
                     </div>
                 </div>
                 <div class="timeline-line"></div>
             </div>
+
+            <div class="fun-tagline">
+                <p>🎉 Making development fun again, one AI tool at a time</p>
+            </div>
         </div>
-        
+
         <div class="nav-buttons">
             <div></div>
             <button class="nav-btn next" onclick="goToNext()">
@@ -394,52 +76,10 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        // Add interactive animations
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.timeline-card');
-            const indicators = document.querySelectorAll('.step-indicator');
-
-            cards.forEach((card, index) => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-8px)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(-3px)';
-                });
-            });
-
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateX(-50%) scale(1.1)';
-                });
-
-                indicator.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateX(-50%) scale(1)';
-                });
-            });
-
-            // Keyboard navigation
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    goToNext();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    goToPrevious();
-                }
-            });
-        });
-
-        function goToPrevious() {
-            // Navigate to previous slide - update URL as needed
-            alert('Add previous slide URL here');
-        }
-
-        function goToNext() {
-            window.location.href = '../02-tools/02-tools.html';
-        }
+        // Set navigation for this specific slide
+        setSlideNavigation(null, '../02-tools/02-tools.html');
     </script>
 </body>
 

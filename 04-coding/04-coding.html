@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding with AI</title>
+    <link rel="stylesheet" href="../main.css">
+    <style>
+        .quality-box {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            padding: 40px 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quality-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fd7e14, #e67e22);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .quality-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .quality-box:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(253, 126, 20, 0.15);
+            border-color: rgba(253, 126, 20, 0.3);
+        }
+
+        .quality-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .quality-box:nth-child(1) .quality-icon {
+            color: #28a745;
+        }
+
+        .quality-box:nth-child(2) .quality-icon {
+            color: #fd7e14;
+        }
+
+        .quality-box:nth-child(3) .quality-icon {
+            color: #dc3545;
+        }
+
+        .quality-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .quality-description {
+            font-size: 0.95rem;
+            color: #6c757d;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .qualities-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .qualities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        @media (max-width: 768px) {
+            .qualities-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Coding</h1>
+            <p class="subtitle">Practical AI Development Techniques</p>
+        </div>
+
+        <div class="content">
+            <div class="decorative-bg"></div>
+            <div class="coding-info">
+                <div class="intro-section">
+                    <h2 class="main-title">Meet Your AI Coding Assistant</h2>
+                    <p class="subtitle-text">A fresh perspective on development with three defining characteristics</p>
+                </div>
+                <div class="qualities-container">
+                    <div class="qualities-grid">
+                        <div class="quality-box">
+                            <span class="quality-icon">⚡</span>
+                            <div class="quality-title">Over Enthusiastic</div>
+                            <div class="quality-description">Ready to tackle any coding challenge with boundless energy and excitement!</div>
+                        </div>
+                        <div class="quality-box">
+                            <span class="quality-icon">🎯</span>
+                            <div class="quality-title">Desperate to Please</div>
+                            <div class="quality-description">Always eager to help and make sure every requirement is met perfectly.</div>
+                        </div>
+                        <div class="quality-box">
+                            <span class="quality-icon">🎓</span>
+                            <div class="quality-title">Straight Out of College</div>
+                            <div class="quality-description">Fresh perspective with the latest knowledge and eagerness to impress.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPrevious()">
+                <span>←</span>
+                Back
+            </button>
+            <button class="nav-btn next" onclick="goToNext()">
+                Next
+                <span>→</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="../main.js"></script>
+    <script>setSlideNavigation('../02-tools/03-custom-instructions-best-practices.html', '04-coding-workflows.html');</script>
+</body>
+
+</html>

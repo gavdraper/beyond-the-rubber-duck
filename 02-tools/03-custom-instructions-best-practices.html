@@ -5,309 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Instructions Best Practices</title>
+    <link rel="stylesheet" href="../main.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .slide {
-            width: 90vw;
-            height: 98vh;
-            max-width: 1200px;
-            max-height: 850px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            border: 1px solid #e9ecef;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #28a745, #fd7e14, #dc3545);
-        }
-
-        .header {
-            padding: 40px 60px 30px;
-            background: linear-gradient(135deg, #343a40 0%, #212529 100%);
-            border-bottom: 1px solid #e9ecef;
-            position: relative;
-            color: white;
-        }
-
-        .title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 15px;
-            text-align: center;
-            animation: fadeInUp 1s ease-out;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-weight: 400;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .content {
-            flex: 1;
-            padding: 35px 60px 100px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-        }
-
-        .instructions-layout {
-            display: flex;
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-            align-items: flex-start;
-        }
-
         .main-content {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .sidebar {
-            flex: 1;
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid #fd7e14;
-            animation: slideInUp 0.8s ease-out 0.6s both;
-        }
-
-        .instruction-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid;
-            transition: all 0.3s ease;
-            animation: slideInUp 0.6s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .instruction-card:nth-child(1) {
-            border-left-color: #28a745;
-            animation-delay: 0.1s;
-        }
-
-        .instruction-card:nth-child(2) {
-            border-left-color: #dc3545;
-            animation-delay: 0.3s;
-        }
-
-        .instruction-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            margin-right: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .instruction-card:hover .card-icon {
-            transform: scale(1.1);
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #212529;
-            margin: 0;
-        }
-
-        .card-description {
-            color: #6c757d;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .example-code {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            font-size: 0.8rem;
-            color: #495057;
-            overflow-x: auto;
-        }
-
-        .sidebar-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #212529;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .sidebar-icon {
-            font-size: 1.5rem;
-            margin-right: 10px;
-        }
-
-        .benefits-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .benefits-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f1f3f4;
-            position: relative;
-            padding-left: 25px;
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .benefits-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #28a745;
-            font-weight: bold;
-        }
-
-        .benefits-list li:last-child {
-            border-bottom: none;
-        }
-
-        .nav-buttons {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, #6c757d, #5a6268);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(108, 117, 125, 0.4);
-            background: linear-gradient(135deg, #5a6268, #495057);
-        }
-
-        .nav-btn.next {
-            background: linear-gradient(135deg, #fd7e14, #e67e22);
-            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
-        }
-
-        .nav-btn.next:hover {
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
-        }
-
-        .nav-btn:active {
-            transform: translateY(0);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                width: 95vw;
-                height: 90vh;
-            }
-
-            .header,
-            .content {
-                padding: 40px 40px;
-            }
-
-            .title {
-                font-size: 2.5rem;
-            }
-
-            .instructions-layout {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .example-code {
-                font-size: 0.7rem;
-            }
+            flex-direction: row;
+            gap: 40px;
         }
     </style>
 </head>
@@ -316,8 +18,8 @@
 
     <div class="slide">
         <div class="header">
-            <h1 class="title">Best Practices</h1>
-            <p class="subtitle">Writing Effective Instruction Files for AI Agents</p>
+            <h1 class="title">Custom Instructions</h1>
+            <p class="subtitle">From Zero to Hero AI Agent</p>
         </div>
 
         <div class="content">
@@ -325,66 +27,72 @@
                 <div class="main-content">
                     <div class="instruction-card">
                         <div class="card-header">
-                            <span class="card-icon">📝</span>
-                            <h3 class="card-title">Essential Content to Include</h3>
+                            <span class="card-icon">🤖</span>
+                            <h3 class="card-title">Agent Behaviors</h3>
                         </div>
-                        <p class="card-description">Define your project context, coding standards, and behavioral expectations. Be specific about what the AI should and shouldn't do.</p>
-                        <div class="example-code"># Project Context
-• Tech stack: React + TypeScript + Node.js
-• Architecture: Clean Architecture, Domain-Driven Design
-• Testing: Jest, React Testing Library, Playwright
+                        <div class="example-code">
 
-# Coding Standards  
-• Follow Clean Code and SOLID principles
-• Use functional programming patterns
-• Prefer composition over inheritance
-• Write self-documenting code
+                            <h3>Define Agent Behavior</h3>
+                            <ul style="margin-left:15px;">
+                                <li>Coding practices and standards to follow</li>
+                                <li>Testing methodology and coverage expectations</li>
+                                <li>Code review and quality assurance processes</li>
+                                <li>Communication style and decision-making approach</li>
+                            </ul>
+                            <br />
+                            <h3>Iterative Improvement</h3>
 
-# Behavioral Rules
-• "Always run tests after making changes"
-• "Never delete existing tests"
-• "Ask before making breaking changes"</div>
+                            Each time you observe unwanted behavior:
+                            <ul style="margin-left:15px;">
+                                <li>Document the specific issue in your instructions</li>
+                                <li>Add explicit guidance to prevent recurrence</li>
+                                <li>Be specific about what you want instead</li>
+                                <li>Test the updated instructions on new tasks</li>
+                            </ul>
+                            <br />
+                            <strong>Example:</strong><br>
+                            "ALWAYS ask before adding new dependencies"<br>
+                            instead of hoping the AI will naturally ask
+                        </div>
                     </div>
 
                     <div class="instruction-card">
                         <div class="card-header">
-                            <span class="card-icon">🔄</span>
-                            <h3 class="card-title">Iterate & Improve</h3>
+                            <span class="card-icon">📋</span>
+                            <h3 class="card-title">Project Documentation</h3>
                         </div>
-                        <p class="card-description">When AI agents behave unexpectedly, update your instruction files. Track common issues and refine your instructions to prevent future problems.</p>
-                        <div class="example-code"># When AI misbehaves:
-1. Identify the unwanted behavior
-2. Add specific instruction to prevent it
-3. Test with similar scenarios
-4. Share updates with your team
+                        <div class="example-code">
 
-# Example iterations:
-"Don't use any/unknown types" → AI used any
-"Always use specific TypeScript types" → Better
-
-"Write tests" → AI skipped edge cases  
-"Write tests including edge cases and error scenarios" → Better</div>
+                            <h3>Tech Stack</h3>
+                            <ul style="margin-left:15px;">
+                                <li>.NET 8, ASP.NET Core, Entity Framework</li>
+                                <li>Architecture: Clean Architecture, Domain-Driven Design</li>
+                                <li>Testing Framework: xUnit, Moq, Testcontainers</li>
+                            </ul>
+                            <br />
+                            <h3>Commands</h3>
+                            <ul style="margin-left:15px;">
+                                <li>Build: dotnet build</li>
+                                <li>Clean: dotnet clean</li>
+                                <li>Run: dotnet run</li>
+                                <li>Test: dotnet test</li>
+                            </ul>
+                            <br />
+                            <h3>Domain Context</h3>
+                            <ul style="margin-left:15px;">
+                                <li>Business rules and constraints</li>
+                                <li>Key entities and their relationships</li>
+                                <li>Integration points and external services</li>
+                                <li>Data access patterns and conventions</li>
+                            </ul>
+                        </div>
                     </div>
+
                 </div>
 
-                <div class="sidebar">
-                    <h3 class="sidebar-title">
-                        <span class="sidebar-icon">💡</span>
-                        Writing Tips
-                    </h3>
-                    <ul class="benefits-list">
-                        <li>Be specific and actionable</li>
-                        <li>Use imperative language ("Always do X")</li>
-                        <li>Include concrete examples</li>
-                        <li>Keep instructions focused and concise</li>
-                        <li>Structure with headings and bullets</li>
-                        <li>Version control instruction changes</li>
-                        <li>Review and update regularly</li>
-                    </ul>
-                </div>
             </div>
         </div>
-        
+
         <div class="nav-buttons">
             <button class="nav-btn" onclick="goToPrevious()">
                 <span>←</span>
@@ -397,40 +105,10 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        // Add interactive animations
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.instruction-card');
-
-            cards.forEach((card, index) => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-8px)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-
-            // Keyboard navigation
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    goToNext();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    goToPrevious();
-                }
-            });
-        });
-
-        function goToPrevious() {
-            window.location.href = './03-custom-instructions.html';
-        }
-
-        function goToNext() {
-            window.location.href = '../03-refinement/01-refinement.html';
-        }
+        // Set navigation for this specific slide
+        setSlideNavigation('./03-custom-instructions.html', '../03-refinement/01-refinement.html');
     </script>
 </body>
 

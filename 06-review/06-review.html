@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review with AI</title>
+    <link rel="stylesheet" href="../main.css">
+    <style>
+        /* Slide-specific styles for review */
+        .content {
+            padding: 35px 60px 100px 60px;
+        }
+
+        .review-layout {
+            display: flex;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .review-card:nth-child(1) {
+            border-left-color: #28a745;
+        }
+
+        .review-card:nth-child(2) {
+            border-left-color: #dc3545;
+        }
+
+        .review-card:nth-child(3) {
+            border-left-color: #fd7e14;
+        }
+
+        .review-card:nth-child(4) {
+            border-left-color: #6f42c1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+        }
+
+        .nav-buttons {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(108, 117, 125, 0.4);
+            background: linear-gradient(135deg, #5a6268, #495057);
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #fd7e14, #e67e22);
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+        }
+
+        .nav-btn.next:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                width: 95vw;
+                height: 90vh;
+            }
+
+            .header,
+            .content {
+                padding: 40px 40px;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .review-layout {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Review</h1>
+            <p class="subtitle">AI-Assisted Code and Architecture Review</p>
+        </div>
+
+        <div class="content">
+            <div class="review-layout">
+                <div class="main-content">
+                    <div class="review-card">
+                        <div class="card-header">
+                            <span class="card-icon">🔒</span>
+                            <h3 class="card-title">Security Review</h3>
+                        </div>
+                        <p>Use AI to identify security vulnerabilities and suggest improvements</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="card-header">
+                            <span class="card-icon">🎨</span>
+                            <h3 class="card-title">Coding Style</h3>
+                        </div>
+                        <p>Ensure consistent code formatting and adherence to team standards</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="card-header">
+                            <span class="card-icon">🏗️</span>
+                            <h3 class="card-title">Architecture</h3>
+                        </div>
+                        <p>Review system design and architectural decisions with AI assistance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPrevious()">
+                <span>←</span>
+                Back
+            </button>
+            <button class="nav-btn next" onclick="goToNext()">
+                Next
+                <span>→</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="../main.js"></script>
+    <script>
+        // Set navigation for this specific slide
+        setSlideNavigation('../05-debugging/05-debugging.html', '../07-debugging/07-debugging.html');
+    </script>
+</body>
+
+</html>

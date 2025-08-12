@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Workflows</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 90vw;
+            height: 98vh;
+            max-width: 1200px;
+            max-height: 850px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #28a745, #fd7e14, #dc3545);
+        }
+
+        .header {
+            padding: 40px 60px 30px;
+            background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+            border-bottom: 1px solid #e9ecef;
+            position: relative;
+            color: white;
+        }
+
+        .title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .content {
+            flex: 1;
+            padding: 50px 80px 120px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            position: relative;
+        }
+
+        .workflow-info {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .intro-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fd7e14, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle-text {
+            font-size: 1.1rem;
+            color: #6c757d;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .workflows-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .workflows-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 0 auto;
+            max-width: 1100px;
+        }
+
+        .workflow-box {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            padding: 25px 30px;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .workflow-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .workflow-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fd7e14, #e67e22);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .workflow-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .workflow-box:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(253, 126, 20, 0.15);
+            border-color: rgba(253, 126, 20, 0.3);
+        }
+
+        .workflow-icon {
+            font-size: 1.8rem;
+            margin-right: 12px;
+            display: inline;
+        }
+
+        .workflow-box:nth-child(1) .workflow-icon {
+            color: #28a745;
+        }
+
+        .workflow-box:nth-child(2) .workflow-icon {
+            color: #fd7e14;
+        }
+
+        .workflow-box:nth-child(3) .workflow-icon {
+            color: #dc3545;
+        }
+
+        .workflow-box:nth-child(4) .workflow-icon {
+            color: #6f42c1;
+        }
+
+        .workflow-box:nth-child(5) .workflow-icon {
+            color: #20c997;
+        }
+
+        .workflow-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .workflow-description {
+            font-size: 0.95rem;
+            color: #6c757d;
+            line-height: 1.6;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .workflow-steps {
+            list-style: none;
+            padding: 0;
+        }
+
+        .workflow-steps li {
+            font-size: 0.9rem;
+            color: #495057;
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .workflow-steps li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #fd7e14;
+            font-weight: bold;
+        }
+
+        .decorative-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at center, rgba(253, 126, 20, 0.03) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .nav-buttons {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(108, 117, 125, 0.4);
+            background: linear-gradient(135deg, #5a6268, #495057);
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #fd7e14, #e67e22);
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+        }
+
+        .nav-btn.next:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .workflows-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 900px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                width: 95vw;
+                height: 90vh;
+            }
+
+            .header {
+                padding: 30px 30px;
+            }
+
+            .content {
+                padding: 30px 30px 80px 30px;
+            }
+
+            .workflows-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                max-width: 400px;
+            }
+
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Coding Workflows</h1>
+            <p class="subtitle">Efficient Development Patterns with AI</p>
+        </div>
+
+        <div class="content">
+            <div class="decorative-bg"></div>
+            <div class="workflow-info">
+                <div class="workflows-container">
+                    <div class="workflows-grid">
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">⚡</span> Break Prompts Down</div>
+                            <div class="workflow-description">Break prompts down into the smallest tasks you can, then
+                                make them smaller</div>
+                        </div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">📋</span> Persist Plans</div>
+                            <div class="workflow-description">Ask for a plan to be persisted to a markdown file with
+                                checkboxes</div>
+                        </div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">🔍</span> Be Critical of Plans</div>
+                            <div class="workflow-description">Be very critical of the plan</div>
+                        </div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">🎯</span> Be Specific</div>
+                            <div class="workflow-description">Be very specific</div>
+                        </div>
+                        <div class="workflow-box">
+                            <div class="workflow-title"><span class="workflow-icon">🌐</span> Provide Maximum Context</div>
+                            <div class="workflow-description">Give as much context as possible, specify files where you
+                                can, the AI can go and search a project but its context window is limited so it will
+                                just sample and miss context</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPrevious()">
+                <span>←</span>
+                Back
+            </button>
+            <button class="nav-btn next" onclick="goToNext()">
+                Next
+                <span>→</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 5; // Number of workflow boxes
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show first item immediately
+            showWorkflowBox(0);
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                goToNext();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                goToPrevious();
+            }
+        });
+
+        function showWorkflowBox(index) {
+            const boxes = document.querySelectorAll('.workflow-box');
+            if (boxes[index]) {
+                boxes[index].classList.add('visible');
+            }
+        }
+
+        function goToPrevious() {
+            window.location.href = '04-coding.html';
+        }
+
+        function goToNext() {
+            if (currentStep < totalSteps - 1) {
+                currentStep++;
+                showWorkflowBox(currentStep);
+            } else {
+                // All items are visible, go to next slide
+                window.location.href = '04-coding-demo.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

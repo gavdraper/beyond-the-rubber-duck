@@ -5,314 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Development Tools</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .slide {
-            width: 90vw;
-            height: 98vh;
-            max-width: 1200px;
-            max-height: 850px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            border: 1px solid #e9ecef;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #28a745, #fd7e14, #dc3545);
-        }
-
-        .header {
-            padding: 40px 60px 30px;
-            background: linear-gradient(135deg, #343a40 0%, #212529 100%);
-            border-bottom: 1px solid #e9ecef;
-            position: relative;
-            color: white;
-        }
-
-        .title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 15px;
-            text-align: center;
-            animation: fadeInUp 1s ease-out;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-weight: 400;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .content {
-            flex: 1;
-            padding: 35px 60px 100px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-        }
-
-        .tools-showcase {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .tool-card {
-            background: white;
-            border-radius: 12px;
-            padding: 28px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e9ecef;
-            transition: all 0.4s ease;
-            animation: slideInUp 0.8s ease-out;
-            position: relative;
-            overflow: hidden;
-            height: 280px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--tool-color), var(--tool-color-light));
-        }
-
-        .tool-card:nth-child(1) {
-            --tool-color: #28a745;
-            --tool-color-light: #34ce57;
-            animation-delay: 0.1s;
-        }
-
-        .tool-card:nth-child(2) {
-            --tool-color: #fd7e14;
-            --tool-color-light: #ff922b;
-            animation-delay: 0.2s;
-        }
-
-        .tool-card:nth-child(3) {
-            --tool-color: #dc3545;
-            --tool-color-light: #e85368;
-            animation-delay: 0.3s;
-        }
-
-        .tool-card:nth-child(4) {
-            --tool-color: #6f42c1;
-            --tool-color-light: #845ef7;
-            animation-delay: 0.4s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .tool-card:hover::before {
-            height: 8px;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, currentColor, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .tool-card:hover::before {
-            opacity: 0.3;
-        }
-
-        .tool-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-right: 16px;
-            transition: transform 0.3s ease;
-            filter: grayscale(0.3);
-        }
-
-        .tool-card:hover .card-icon {
-            transform: scale(1.1);
-            filter: grayscale(0);
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #212529;
-            margin: 0;
-        }
-
-        .card-description {
-            color: #6c757d;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            flex: 1;
-        }
-
-        .tool-footer {
-            margin-top: auto;
-            padding-top: 16px;
-            border-top: 1px solid #f1f3f4;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #8e9297;
-        }
-
-        .tool-category {
-            background: var(--tool-color);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        .nav-buttons {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, #6c757d, #5a6268);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(108, 117, 125, 0.4);
-            background: linear-gradient(135deg, #5a6268, #495057);
-        }
-
-        .nav-btn.next {
-            background: linear-gradient(135deg, #fd7e14, #e67e22);
-            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
-        }
-
-        .nav-btn.next:hover {
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            box-shadow: 0 6px 18px rgba(253, 126, 20, 0.4);
-        }
-
-        .nav-btn:active {
-            transform: translateY(0);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                width: 95vw;
-                height: 90vh;
-            }
-
-            .header,
-            .content {
-                padding: 40px 40px;
-            }
-
-            .title {
-                font-size: 2.5rem;
-            }
-
-            .tools-showcase {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .tool-card {
-                height: auto;
-                min-height: 220px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../main.css">
 </head>
 
 <body>
@@ -330,9 +23,11 @@
                         <span class="card-icon">🐙</span>
                         <h3 class="card-title">GitHub Copilot</h3>
                     </div>
-                    <p class="card-description">AI pair programmer that suggests code completions, entire functions, and helps write code faster directly in your IDE with context-aware suggestions.</p>
+                    <p class="card-description">AI pair programmer that suggests code completions, entire functions, and
+                        helps write code faster directly in your IDE with context-aware suggestions.</p>
                     <div class="tool-footer">
-                        <span class="tool-category">Code Generation</span>
+                        <span class="tool-category">IDE Plugin</span>
+                        <span class="tool-category">Multi-Model</span>
                         <span>Microsoft/OpenAI</span>
                     </div>
                 </div>
@@ -342,9 +37,12 @@
                         <span class="card-icon">🤖</span>
                         <h3 class="card-title">Claude Code</h3>
                     </div>
-                    <p class="card-description">Anthropic's AI assistant for software development. Excels at code analysis, debugging, refactoring, and architectural discussions with deep context understanding.</p>
+                    <p class="card-description">Anthropic's AI assistant for software development. Excels at code
+                        analysis, debugging, refactoring, and architectural discussions with deep context understanding.
+                    </p>
                     <div class="tool-footer">
-                        <span class="tool-category">Code Analysis</span>
+                        <span class="tool-category">CLI & IDE</span>
+                        <span class="tool-category">Sonnet/Opus</span>
                         <span>Anthropic</span>
                     </div>
                 </div>
@@ -354,9 +52,12 @@
                         <span class="card-icon">💬</span>
                         <h3 class="card-title">ChatGPT</h3>
                     </div>
-                    <p class="card-description">OpenAI's conversational AI that helps with coding problems, algorithm design, code explanations, and technical documentation across multiple programming languages.</p>
+                    <p class="card-description">OpenAI's conversational AI that helps with coding problems, algorithm
+                        design, code explanations, and technical documentation across multiple programming languages.
+                    </p>
                     <div class="tool-footer">
-                        <span class="tool-category">Problem Solving</span>
+                        <span class="tool-category">Web & API</span>
+                        <span class="tool-category">OpenAI Models</span>
                         <span>OpenAI</span>
                     </div>
                 </div>
@@ -366,15 +67,17 @@
                         <span class="card-icon">💎</span>
                         <h3 class="card-title">Gemini CLI</h3>
                     </div>
-                    <p class="card-description">Google's AI assistant accessible via command line interface. Integrates seamlessly into terminal workflows for quick code generation and problem-solving.</p>
+                    <p class="card-description">Google's AI assistant accessible via command line interface. Integrates
+                        seamlessly into terminal workflows for quick code generation and problem-solving.</p>
                     <div class="tool-footer">
-                        <span class="tool-category">CLI Integration</span>
+                        <span class="tool-category">CLI Tool</span>
+                        <span class="tool-category">Gemini</span>
                         <span>Google</span>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="nav-buttons">
             <button class="nav-btn" onclick="goToPrevious()">
                 <span>←</span>
@@ -387,40 +90,10 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        // Add interactive animations
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.tool-card');
-
-            cards.forEach((card, index) => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-
-            // Keyboard navigation
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    goToNext();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    goToPrevious();
-                }
-            });
-        });
-
-        function goToPrevious() {
-            window.location.href = '../01-intro/01-intro.html';
-        }
-
-        function goToNext() {
-            window.location.href = './03-custom-instructions.html';
-        }
+        // Set navigation for this specific slide
+        setSlideNavigation('../01-intro/01-intro.html', './03-custom-instructions.html');
     </script>
 </body>
 
