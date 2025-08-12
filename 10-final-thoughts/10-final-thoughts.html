@@ -26,27 +26,30 @@
             padding: 25px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             border-left: 4px solid;
-            animation: slideInUp 0.6s ease-out;
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .point-card.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
         .point-card:nth-child(1) {
             border-left-color: #28a745;
-            animation-delay: 0.1s;
         }
 
         .point-card:nth-child(2) {
             border-left-color: #fd7e14;
-            animation-delay: 0.2s;
         }
 
         .point-card:nth-child(3) {
             border-left-color: #dc3545;
-            animation-delay: 0.3s;
         }
 
         .point-card:nth-child(4) {
             border-left-color: #6f42c1;
-            animation-delay: 0.4s;
         }
 
         .point-header {
@@ -79,7 +82,22 @@
             padding: 30px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             text-align: center;
-            animation: slideInUp 0.6s ease-out 0.5s both;
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .closing-message.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Override no-animations for essential visibility */
+        .no-animations .point-card.visible,
+        .no-animations .closing-message.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            transition: none !important;
         }
 
         .closing-text {
@@ -187,8 +205,82 @@
 
     <script src="../main.js"></script>
     <script>
+        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
+        const totalSteps = 5; // 4 point cards + 1 closing message
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if we should skip animations and show all items
+            const urlParams = new URLSearchParams(window.location.search);
+            const skipAnimations = urlParams.get('skipAnimations') === 'true';
+            
+            // Also check if the global no-animations class is applied (from main.js)
+            const hasNoAnimations = document.body.classList.contains('no-animations');
+            
+            if (skipAnimations || hasNoAnimations) {
+                // Show all items immediately
+                const cards = document.querySelectorAll('.point-card');
+                const closingMessage = document.querySelector('.closing-message');
+                
+                cards.forEach(card => {
+                    card.style.transition = 'none'; // Disable transitions
+                    card.classList.add('visible');
+                });
+                
+                if (closingMessage) {
+                    closingMessage.style.transition = 'none';
+                    closingMessage.classList.add('visible');
+                }
+                
+                currentStep = totalSteps - 1; // Set to last step
+                
+                // Clean up URL parameter if present
+                if (skipAnimations) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('skipAnimations');
+                    window.history.replaceState({}, '', url);
+                }
+            } else {
+                // Normal visit - show first item on load
+                currentStep = 0;
+                showItem(0);
+            }
+        });
+
         // Set navigation for this specific slide
         setSlideNavigation('../09-questionnaire-feedback/08-questionnaire-feedback.html', null);
+
+        // Set custom navigation handlers for internal slide logic
+        setCustomNavigationHandlers(
+            // onNext handler
+            function() {
+                if (currentStep < totalSteps - 1) {
+                    currentStep++;
+                    showItem(currentStep);
+                    return false; // Handled internally, don't proceed to default navigation
+                } else {
+                    // All items visible, proceed to default navigation (next slide)
+                    return true;
+                }
+            },
+            // onPrevious handler
+            function() {
+                // Always go to previous slide for this workflow
+                return true; // Proceed to default navigation
+            }
+        );
+
+        function showItem(index) {
+            const cards = document.querySelectorAll('.point-card');
+            const closingMessage = document.querySelector('.closing-message');
+            
+            if (index < 4 && cards[index]) {
+                // Show point card
+                cards[index].classList.add('visible');
+            } else if (index === 4 && closingMessage) {
+                // Show closing message
+                closingMessage.classList.add('visible');
+            }
+        }
     </script>
 </body>
 

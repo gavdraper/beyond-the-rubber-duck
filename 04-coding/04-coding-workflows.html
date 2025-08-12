@@ -262,8 +262,9 @@
                     window.history.replaceState({}, '', url);
                 }
             } else {
-                // Normal visit - don't show any items initially
-                currentStep = -1;
+                // Normal visit - show first item on load
+                currentStep = 0;
+                showWorkflowBox(0);
             }
         });
 
