@@ -6,163 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Development Tools</title>
     <link rel="stylesheet" href="../main.css">
-    <style>
-        /* Slide-specific styles for tools showcase */
-        .content {
-            padding: 20px 60px 80px 60px;
-        }
-
-        .tools-showcase {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .tool-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e9ecef;
-            transition: all 0.4s ease;
-            animation: slideInUp 0.8s ease-out;
-            position: relative;
-            overflow: hidden;
-            height: 240px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--tool-color), var(--tool-color-light));
-        }
-
-        .tool-card:nth-child(1) {
-            --tool-color: #28a745;
-            --tool-color-light: #34ce57;
-            animation-delay: 0.1s;
-        }
-
-        .tool-card:nth-child(2) {
-            --tool-color: #fd7e14;
-            --tool-color-light: #ff922b;
-            animation-delay: 0.2s;
-        }
-
-        .tool-card:nth-child(3) {
-            --tool-color: #dc3545;
-            --tool-color-light: #e85368;
-            animation-delay: 0.3s;
-        }
-
-        .tool-card:nth-child(4) {
-            --tool-color: #6f42c1;
-            --tool-color-light: #845ef7;
-            animation-delay: 0.4s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .tool-card:hover::before {
-            height: 8px;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, currentColor, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .tool-card:hover::before {
-            opacity: 0.3;
-        }
-
-        .tool-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-right: 16px;
-            transition: transform 0.3s ease;
-            filter: grayscale(0.3);
-        }
-
-        .tool-card:hover .card-icon {
-            transform: scale(1.1);
-            filter: grayscale(0);
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #212529;
-            margin: 0;
-        }
-
-        .card-description {
-            color: #6c757d;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            flex: 1;
-        }
-
-        .tool-footer {
-            margin-top: auto;
-            padding-top: 16px;
-            border-top: 1px solid #f1f3f4;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #8e9297;
-        }
-
-        .tool-category {
-            background: var(--tool-color);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                padding: 40px 40px;
-            }
-
-            .tools-showcase {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .tool-card {
-                height: auto;
-                min-height: 220px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -180,7 +23,8 @@
                         <span class="card-icon">🐙</span>
                         <h3 class="card-title">GitHub Copilot</h3>
                     </div>
-                    <p class="card-description">AI pair programmer that suggests code completions, entire functions, and helps write code faster directly in your IDE with context-aware suggestions.</p>
+                    <p class="card-description">AI pair programmer that suggests code completions, entire functions, and
+                        helps write code faster directly in your IDE with context-aware suggestions.</p>
                     <div class="tool-footer">
                         <span class="tool-category">IDE Plugin</span>
                         <span class="tool-category">Multi-Model</span>
@@ -193,7 +37,9 @@
                         <span class="card-icon">🤖</span>
                         <h3 class="card-title">Claude Code</h3>
                     </div>
-                    <p class="card-description">Anthropic's AI assistant for software development. Excels at code analysis, debugging, refactoring, and architectural discussions with deep context understanding.</p>
+                    <p class="card-description">Anthropic's AI assistant for software development. Excels at code
+                        analysis, debugging, refactoring, and architectural discussions with deep context understanding.
+                    </p>
                     <div class="tool-footer">
                         <span class="tool-category">CLI & IDE</span>
                         <span class="tool-category">Sonnet/Opus</span>
@@ -206,7 +52,9 @@
                         <span class="card-icon">💬</span>
                         <h3 class="card-title">ChatGPT</h3>
                     </div>
-                    <p class="card-description">OpenAI's conversational AI that helps with coding problems, algorithm design, code explanations, and technical documentation across multiple programming languages.</p>
+                    <p class="card-description">OpenAI's conversational AI that helps with coding problems, algorithm
+                        design, code explanations, and technical documentation across multiple programming languages.
+                    </p>
                     <div class="tool-footer">
                         <span class="tool-category">Web & API</span>
                         <span class="tool-category">OpenAI Models</span>
@@ -219,7 +67,8 @@
                         <span class="card-icon">💎</span>
                         <h3 class="card-title">Gemini CLI</h3>
                     </div>
-                    <p class="card-description">Google's AI assistant accessible via command line interface. Integrates seamlessly into terminal workflows for quick code generation and problem-solving.</p>
+                    <p class="card-description">Google's AI assistant accessible via command line interface. Integrates
+                        seamlessly into terminal workflows for quick code generation and problem-solving.</p>
                     <div class="tool-footer">
                         <span class="tool-category">CLI Tool</span>
                         <span class="tool-category">Gemini</span>
@@ -228,7 +77,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="nav-buttons">
             <button class="nav-btn" onclick="goToPrevious()">
                 <span>←</span>
