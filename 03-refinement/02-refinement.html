@@ -149,7 +149,11 @@
             if (currentId === 'stage2') {
                 showStage('stage1');
             } else if (currentId === 'stage1') {
-                window.location.href = './01-refinement.html';
+                // Use the main navigation system for slide-to-slide navigation
+                const previousUrl = './01-refinement.html';
+                const separator = previousUrl.includes('?') ? '&' : '?';
+                const urlWithParam = previousUrl + separator + 'skipAnimations=true';
+                window.location.href = urlWithParam;
             }
         }
 
@@ -187,10 +191,23 @@
 
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     e.preventDefault();
-                    if (currentId === 'stage1') showOutput();
+                    if (currentId === 'stage1') {
+                        showOutput();
+                    } else if (currentId === 'stage2') {
+                        // Navigate to next slide when at final stage
+                        window.location.href = '../04-coding/04-coding.html';
+                    }
                 } else if (e.key === 'ArrowLeft') {
                     e.preventDefault();
-                    if (currentId === 'stage2') showStage('stage1');
+                    if (currentId === 'stage2') {
+                        showStage('stage1');
+                    } else if (currentId === 'stage1') {
+                        // Navigate to previous slide when at first stage
+                        const previousUrl = './01-refinement.html';
+                        const separator = previousUrl.includes('?') ? '&' : '?';
+                        const urlWithParam = previousUrl + separator + 'skipAnimations=true';
+                        window.location.href = urlWithParam;
+                    }
                 } else if (e.key === 'Home') {
                     e.preventDefault();
                     resetSlide();

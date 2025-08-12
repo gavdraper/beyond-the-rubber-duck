@@ -68,8 +68,15 @@
         }
 
         .workflow-box.visible {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Override no-animations for essential visibility */
+        .no-animations .workflow-box.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            transition: none !important;
         }
 
         .workflow-box::before {
@@ -228,23 +235,60 @@
 
     <script src="../main.js"></script>
     <script>
-        let currentStep = 0;
+        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
         const totalSteps = 5; // Number of workflow boxes
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Show first item immediately
-            showWorkflowBox(0);
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                goToNext();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                goToPrevious();
+            // Check if we should skip animations and show all items
+            const urlParams = new URLSearchParams(window.location.search);
+            const skipAnimations = urlParams.get('skipAnimations') === 'true';
+            
+            // Also check if the global no-animations class is applied (from main.js)
+            const hasNoAnimations = document.body.classList.contains('no-animations');
+            
+            if (skipAnimations || hasNoAnimations) {
+                // Show all items immediately
+                const boxes = document.querySelectorAll('.workflow-box');
+                boxes.forEach(box => {
+                    box.style.transition = 'none'; // Disable transitions
+                    box.classList.add('visible');
+                });
+                currentStep = totalSteps - 1; // Set to last step
+                
+                // Clean up URL parameter if present
+                if (skipAnimations) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('skipAnimations');
+                    window.history.replaceState({}, '', url);
+                }
+            } else {
+                // Normal visit - don't show any items initially
+                currentStep = -1;
             }
         });
+
+        // Set navigation paths for main.js to handle
+        setSlideNavigation('04-coding.html', '04-coding-demo.html');
+
+        // Set custom navigation handlers for internal slide logic
+        setCustomNavigationHandlers(
+            // onNext handler
+            function() {
+                if (currentStep < totalSteps - 1) {
+                    currentStep++;
+                    showWorkflowBox(currentStep);
+                    return false; // Handled internally, don't proceed to default navigation
+                } else {
+                    // All items visible, proceed to default navigation (next slide)
+                    return true;
+                }
+            },
+            // onPrevious handler
+            function() {
+                // Always go to previous slide for this workflow
+                return true; // Proceed to default navigation
+            }
+        );
 
         function showWorkflowBox(index) {
             const boxes = document.querySelectorAll('.workflow-box');
@@ -253,18 +297,11 @@
             }
         }
 
-        function goToPrevious() {
-            window.location.href = '04-coding.html';
-        }
-
-        function goToNext() {
-            if (currentStep < totalSteps - 1) {
-                currentStep++;
-                showWorkflowBox(currentStep);
-            } else {
-                // All items are visible, go to next slide
-                window.location.href = '04-coding-demo.html';
-            }
+        function showAllWorkflowBoxes() {
+            const boxes = document.querySelectorAll('.workflow-box');
+            boxes.forEach(box => {
+                box.classList.add('visible');
+            });
         }
     </script>
 </body>

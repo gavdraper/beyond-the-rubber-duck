@@ -87,7 +87,11 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
+        // Set navigation for this specific slide
+        setSlideNavigation('../02-tools/03-custom-instructions-best-practices.html', './02-refinement.html');
+
         // Add some interactive animations
         document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.refinement-card');
@@ -115,28 +119,8 @@
                 });
             });
 
-            // Keyboard navigation
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    document.body.style.filter = 'blur(0px)';
-                }
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    goToNextSlide();
-                } else if (e.key === 'ArrowLeft') {
-                    goToPrevious();
-                }
-            });
-
             // Subtle hover effects for professional presentation
         });
-
-        function goToPrevious() {
-            window.location.href = '../02-tools/03-custom-instructions-best-practices.html';
-        }
-
-        function goToNextSlide() {
-            window.location.href = './02-refinement.html';
-        }
     </script>
 </body>
 

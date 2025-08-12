@@ -997,3 +997,18 @@ body {
         transform: scale(1.1);
     }
 }
+
+/* No animations class - disables all animations when going back */
+.no-animations * {
+    animation: none !important;
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition: none !important;
+}
+
+.no-animations {
+    animation: none !important;
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition: none !important;
+}
