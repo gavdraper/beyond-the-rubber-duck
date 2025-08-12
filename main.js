@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (e.key === 'ArrowLeft') {
             e.preventDefault();
             goToPrevious();
+        } else if (e.key === '?') {
+            e.preventDefault();
+            toggleNotes();
         }
     });
 
@@ -116,6 +119,15 @@ function smoothScrollTo(element) {
             behavior: 'smooth',
             block: 'center'
         });
+    }
+}
+
+// Toggle notes visibility
+function toggleNotes() {
+    const notesElement = document.getElementById('notes');
+    if (notesElement) {
+        const currentDisplay = window.getComputedStyle(notesElement).display;
+        notesElement.style.display = (currentDisplay === 'none') ? 'block' : 'none';
     }
 }
 
