@@ -195,25 +195,10 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        // Keyboard navigation
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                goToNext();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                goToPrevious();
-            }
-        });
-
-        function goToPrevious() {
-            window.location.href = '../08-assistant/08-assistant.html';
-        }
-
-        function goToNext() {
-            window.location.href = '../10-final-thoughts/10-final-thoughts.html';
-        }
+        // Set navigation for this specific slide
+        setSlideNavigation('../08-assistant/08-assistant.html', '../10-final-thoughts/10-final-thoughts.html');
     </script>
 </body>
 

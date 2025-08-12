@@ -5,81 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Instructions Best Practices</title>
+    <link rel="stylesheet" href="../main.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .slide {
-            width: 90vw;
-            height: 98vh;
-            max-width: 1200px;
-            max-height: 850px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            border: 1px solid #e9ecef;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #28a745, #fd7e14, #dc3545);
-        }
-
-        .header {
-            padding: 40px 60px 30px;
-            background: linear-gradient(135deg, #343a40 0%, #212529 100%);
-            border-bottom: 1px solid #e9ecef;
-            position: relative;
-            color: white;
-        }
-
-        .title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 15px;
-            text-align: center;
-            animation: fadeInUp 1s ease-out;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-weight: 400;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
+        /* Slide-specific styles for custom instructions best practices */
         .content {
-            flex: 1;
             padding: 35px 60px 100px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
         }
 
         .instructions-layout {
@@ -404,40 +334,10 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        // Add interactive animations
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.instruction-card');
-
-            cards.forEach((card, index) => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-8px)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-
-            // Keyboard navigation
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    goToNext();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    goToPrevious();
-                }
-            });
-        });
-
-        function goToPrevious() {
-            window.location.href = './03-custom-instructions.html';
-        }
-
-        function goToNext() {
-            window.location.href = '../04-coding/04-coding.html';
-        }
+        // Set navigation for this specific slide
+        setSlideNavigation('./03-custom-instructions.html', './03-project-documentation.html');
     </script>
 </body>
 

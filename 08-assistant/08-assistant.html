@@ -267,24 +267,10 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                goToNext();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                goToPrevious();
-            }
-        });
-
-        function goToPrevious() {
-            window.location.href = '../07-debugging/07-debugging.html';
-        }
-
-        function goToNext() {
-            window.location.href = '../08-questionnaire-feedback/08-questionnaire-feedback.html';
-        }
+        // Set navigation for this specific slide
+        setSlideNavigation('../07-debugging/07-debugging.html', '../08-questionnaire-feedback/08-questionnaire-feedback.html');
     </script>
 </body>
 

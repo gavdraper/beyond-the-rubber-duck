@@ -333,20 +333,10 @@
         </div>
     </div>
 
+    <script src="../main.js"></script>
     <script>
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                // No navigation - this is the final slide
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                goToPrevious();
-            }
-        });
-
-        function goToPrevious() {
-            window.location.href = '../08-questionnaire-feedback/08-questionnaire-feedback.html';
-        }
+        // Set navigation for this specific slide
+        setSlideNavigation('../08-questionnaire-feedback/08-questionnaire-feedback.html', null);
     </script>
 </body>
 
