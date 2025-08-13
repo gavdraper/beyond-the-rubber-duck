@@ -1,4 +1,0 @@
-# Assistant
-
-* Grafana Queries
-* Learning

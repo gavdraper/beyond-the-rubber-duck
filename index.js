@@ -8,72 +8,72 @@ window.slideIndex = {
         {
             id: '01-intro',
             title: 'Introduction to AI-Powered Development',
-            path: '01-intro/01-intro.html'
+            path: '01-intro.html'
         },
         {
             id: '02-tools',
             title: 'AI Development Tools',
-            path: '02-tools/02-tools.html'
+            path: '02-tools.html'
         },
         {
             id: '03-custom-instructions',
             title: 'Custom Instructions',
-            path: '02-tools/03-custom-instructions.html'
+            path: '03-custom-instructions.html'
         },
         {
             id: '03-custom-instructions-best-practices',
             title: 'Custom Instructions Best Practices',
-            path: '02-tools/03-custom-instructions-best-practices.html'
+            path: '04-custom-instructions-best-practices.html'
         },
         {
             id: '01-refinement',
             title: 'Refinement Process',
-            path: '03-refinement/01-refinement.html'
+            path: '05-refinement.html'
         },
         {
             id: '02-refinement',
             title: 'Refinement Continued',
-            path: '03-refinement/02-refinement.html'
+            path: '06-refinement.html'
         },
         {
             id: '04-coding',
             title: 'Coding with AI',
-            path: '04-coding/04-coding.html'
+            path: '07-coding.html'
         },
         {
             id: '04-coding-workflows',
             title: 'Coding Workflows',
-            path: '04-coding/04-coding-workflows.html'
+            path: '08-coding-workflows.html'
         },
         {
             id: '04-coding-demo',
             title: 'Coding Demo',
-            path: '04-coding/04-coding-demo.html'
+            path: '09-coding-demo.html'
         },
         {
             id: '06-review',
             title: 'Code Review',
-            path: '06-review/06-review.html'
+            path: '10-review.html'
         },
         {
             id: '07-debugging',
             title: 'Debugging with AI',
-            path: '07-debugging/07-debugging.html'
+            path: '11-debugging.html'
         },
         {
             id: '08-assistant',
             title: 'AI Assistant',
-            path: '08-assistant/08-assistant.html'
+            path: '12-assistant.html'
         },
         {
             id: '08-questionnaire-feedback',
             title: 'Questionnaire & Feedback',
-            path: '09-questionnaire-feedback/08-questionnaire-feedback.html'
+            path: '13-questionnaire-feedback.html'
         },
         {
             id: '10-final-thoughts',
             title: 'Final Thoughts',
-            path: '10-final-thoughts/10-final-thoughts.html'
+            path: '14-final-thoughts.html'
         }
     ],
 
