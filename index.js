@@ -7,89 +7,85 @@ window.slideIndex = {
     slides: [
         {
             id: '01-intro',
-            path: '01-intro.html'
+            path: 'slides/01-intro.html'
         },
         {
             id: '02-tools',
-            path: '02-tools.html'
+            path: 'slides/02-tools.html'
         },
         {
             id: '03-custom-instructions',
-            path: '03-custom-instructions.html'
+            path: 'slides/03-custom-instructions.html'
         },
         {
             id: '03-custom-instructions-best-practices',
-            path: '04-custom-instructions-best-practices.html'
+            path: 'slides/04-custom-instructions-best-practices.html'
         },
         {
             id: '01-refinement',
-            path: '05-refinement.html'
+            path: 'slides/05-refinement.html'
         },
         {
             id: '02-refinement',
-            path: '06-refinement.html'
+            path: 'slides/06-refinement.html'
         },
         {
             id: '04-coding',
-            path: '07-coding.html'
+            path: 'slides/07-coding.html'
         },
         {
             id: '04-coding-workflows',
-            path: '08-coding-workflows.html'
+            path: 'slides/08-coding-workflows.html'
         },
         {
             id: '04-coding-demo',
-            path: '09-coding-demo.html'
+            path: 'slides/09-coding-demo.html'
         },
         {
             id: '06-review',
-            path: '10-review.html'
+            path: 'slides/10-review.html'
         },
         {
             id: '07-debugging',
-            path: '11-debugging.html'
-        },
-        {
-            id: '08-assistant',
-            path: '12-assistant.html'
+            path: 'slides/11-debugging.html'
         },
         {
             id: '08-questionnaire-feedback',
-            path: '13-questionnaire-feedback.html'
+            path: 'slides/13-questionnaire-feedback.html'
         },
         {
             id: '10-final-thoughts',
-            path: '14-final-thoughts.html'
+            path: 'slides/14-final-thoughts.html'
         }
     ],
 
     // Get slide by index (0-based)
-    getSlideByIndex: function(index) {
+    getSlideByIndex: function (index) {
         return this.slides[index] || null;
     },
 
     // Get slide by ID
-    getSlideById: function(id) {
+    getSlideById: function (id) {
         return this.slides.find(slide => slide.id === id) || null;
     },
 
     // Get slide index by ID
-    getIndexById: function(id) {
+    getIndexById: function (id) {
         return this.slides.findIndex(slide => slide.id === id);
     },
 
     // Get slide index by path
-    getIndexByPath: function(path) {
+    getIndexByPath: function (path) {
         // Normalize path to match stored paths
         const normalizedPath = path.replace(/^\.\.\//, '').replace(/^\//, '');
         return this.slides.findIndex(slide => slide.path === normalizedPath);
     },
 
     // Get current slide index based on current path
-    getCurrentSlideIndex: function() {
+    getCurrentSlideIndex: function () {
         const currentPath = window.location.pathname;
         const filename = currentPath.split('/').pop();
-        
+
         // Find slide by matching filename
         for (let i = 0; i < this.slides.length; i++) {
             if (this.slides[i].path.endsWith(filename)) {
@@ -100,11 +96,11 @@ window.slideIndex = {
     },
 
     // Get previous slide path
-    getPreviousSlide: function(currentIndex = null) {
+    getPreviousSlide: function (currentIndex = null) {
         if (currentIndex === null) {
             currentIndex = this.getCurrentSlideIndex();
         }
-        
+
         if (currentIndex > 0) {
             return '../' + this.slides[currentIndex - 1].path;
         }
@@ -112,11 +108,11 @@ window.slideIndex = {
     },
 
     // Get next slide path
-    getNextSlide: function(currentIndex = null) {
+    getNextSlide: function (currentIndex = null) {
         if (currentIndex === null) {
             currentIndex = this.getCurrentSlideIndex();
         }
-        
+
         if (currentIndex >= 0 && currentIndex < this.slides.length - 1) {
             return '../' + this.slides[currentIndex + 1].path;
         }
@@ -124,17 +120,17 @@ window.slideIndex = {
     },
 
     // Auto-configure navigation for current slide
-    autoConfigureNavigation: function() {
+    autoConfigureNavigation: function () {
         const currentIndex = this.getCurrentSlideIndex();
         if (currentIndex >= 0) {
             const previousPath = this.getPreviousSlide(currentIndex);
             const nextPath = this.getNextSlide(currentIndex);
-            
+
             // Use the existing setSlideNavigation function from main.js
             if (typeof setSlideNavigation === 'function') {
                 setSlideNavigation(previousPath, nextPath);
             }
-            
+
             return {
                 previous: previousPath,
                 next: nextPath,
@@ -145,7 +141,7 @@ window.slideIndex = {
     },
 
     // Get all slide information for debugging
-    getAllSlides: function() {
+    getAllSlides: function () {
         return this.slides.map((slide, index) => ({
             index: index,
             ...slide

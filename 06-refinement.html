@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story Transformation</title>
-    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="main.css">
     <style>
         .header {
             text-align: center;
@@ -122,7 +122,6 @@
             line-height: 1.5;
             color: #424242;
         }
-
     </style>
 </head>
 
@@ -143,19 +142,23 @@
                     </div>
                     <div class="card-content">
                         <div class="input-content">
-                            When new posts are created show a notification similar to twitter at the top of the screen to
-                            other users, that notification should say "New Posts, Press . to load", When the user presses .
+                            When new posts are created show a notification similar to twitter at the top of the screen
+                            to
+                            other users, that notification should say "New Posts, Press . to load", When the user
+                            presses .
                             scroll to the top and refresh the posts
                             <br><br>
                             Priority: High
                         </div>
-                        
+
                         <div style="margin-top: 20px;">
                             <div style="font-weight: 600; margin-bottom: 8px; color: #1976d2; font-size: 1rem;">
                                 🤖 AI Prompt
                             </div>
-                            <div style="background: rgba(25, 118, 210, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid #1976d2; font-style: italic; color: #555;">
-                                "Take this feature request, turn it into appropriately sized and separated stories with good descriptions, acceptance criteria and test cases with suggestions for their types"
+                            <div
+                                style="background: rgba(25, 118, 210, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid #1976d2; font-style: italic; color: #555;">
+                                "Take this feature request, turn it into appropriately sized and separated stories with
+                                good descriptions, acceptance criteria and test cases with suggestions for their types"
                             </div>
                         </div>
                     </div>
@@ -169,7 +172,8 @@
                     </div>
                     <div class="card-content">
                         <div class="output-content">
-                            <div style="background: #e3f2fd; padding: 8px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #2196f3;">
+                            <div
+                                style="background: #e3f2fd; padding: 8px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #2196f3;">
                                 <strong>🎯 STORY 1/5 - Real-time Feed Notifications</strong>
                             </div>
 
@@ -177,7 +181,8 @@
                                 <div class="section-title">Story</div>
                                 <div class="section-content">
                                     <strong>As a</strong> social media user, <br /><strong>I want</strong> to see a
-                                    notification when new posts are available <br /><strong>so that</strong> I can choose to
+                                    notification when new posts are available <br /><strong>so that</strong> I can
+                                    choose to
                                     refresh my feed without missing recent content.
                                 </div>
                             </div>
@@ -200,10 +205,14 @@
                                 <div class="section-title">Test Cases</div>
                                 <div class="section-content">
                                     <ul>
-                                        <li><strong>Unit:</strong> Verify notification component renders with correct props</li>
-                                        <li><strong>Integration:</strong> Test notification triggers when new posts detected</li>
-                                        <li><strong>E2E:</strong> Validate full user flow - new post creates visible notification</li>
-                                        <li><strong>Manual:</strong> Confirm notification positioning and visual design</li>
+                                        <li><strong>Unit:</strong> Verify notification component renders with correct
+                                            props</li>
+                                        <li><strong>Integration:</strong> Test notification triggers when new posts
+                                            detected</li>
+                                        <li><strong>E2E:</strong> Validate full user flow - new post creates visible
+                                            notification</li>
+                                        <li><strong>Manual:</strong> Confirm notification positioning and visual design
+                                        </li>
                                         <li>...</li>
                                     </ul>
                                 </div>
@@ -226,15 +235,15 @@
         </div>
     </div>
 
-    <script src="../index.js"></script>
-    <script src="../main.js"></script>
+    <script src="index.js"></script>
+    <script src="main.js"></script>
     <script>
         let isFlipped = false;
 
         function flipCard() {
             const card = document.getElementById('flipCard');
             isFlipped = !isFlipped;
-            
+
             if (isFlipped) {
                 card.classList.add('flipped');
             } else {
@@ -245,7 +254,7 @@
         // Set custom navigation handlers for flip card logic
         setCustomNavigationHandlers(
             // onNext handler
-            function() {
+            function () {
                 if (!isFlipped) {
                     // Always flip to show the output on first Next click
                     flipCard();
@@ -256,7 +265,7 @@
                 }
             },
             // onPrevious handler
-            function() {
+            function () {
                 if (isFlipped) {
                     // If card is flipped, flip it back
                     flipCard();
@@ -272,11 +281,11 @@
             // Check if we should skip animations and show flipped state
             const urlParams = new URLSearchParams(window.location.search);
             const skipAnimations = urlParams.get('skipAnimations') === 'true';
-            
+
             if (skipAnimations || document.body.classList.contains('no-animations')) {
                 // Show flipped state immediately
                 flipCard();
-                
+
                 // Clean up URL parameter
                 if (skipAnimations) {
                     const url = new URL(window.location);
