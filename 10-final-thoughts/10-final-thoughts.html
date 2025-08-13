@@ -196,9 +196,9 @@
                 <span>←</span>
                 Back
             </button>
-            <button class="nav-btn disabled">
-                End
-                <span>🎉</span>
+            <button class="nav-btn" onclick="goToNext()" id="next-btn">
+                Next
+                <span>→</span>
             </button>
         </div>
     </div>
@@ -272,6 +272,7 @@
         function showItem(index) {
             const cards = document.querySelectorAll('.point-card');
             const closingMessage = document.querySelector('.closing-message');
+            const nextBtn = document.getElementById('next-btn');
             
             if (index < 4 && cards[index]) {
                 // Show point card
@@ -279,6 +280,13 @@
             } else if (index === 4 && closingMessage) {
                 // Show closing message
                 closingMessage.classList.add('visible');
+            }
+            
+            // Update next button when all items are shown
+            if (index >= totalSteps - 1) {
+                nextBtn.innerHTML = 'End<span>🎉</span>';
+                nextBtn.classList.add('disabled');
+                nextBtn.style.pointerEvents = 'none';
             }
         }
     </script>
