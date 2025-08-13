@@ -79,27 +79,6 @@
             transition: none !important;
         }
 
-        .workflow-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #fd7e14, #e67e22);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .workflow-box:hover::before {
-            transform: scaleX(1);
-        }
-
-        .workflow-box:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(253, 126, 20, 0.15);
-            border-color: rgba(253, 126, 20, 0.3);
-        }
 
         .workflow-icon {
             font-size: 1.8rem;
@@ -191,25 +170,25 @@
             <div class="workflow-info">
                 <div class="workflows-container">
                     <div class="workflows-grid">
-                        <div class="workflow-box">
+                        <div class="workflow-box hover-quality-box">
                             <div class="workflow-title"><span class="workflow-icon">⚡</span> Break Prompts Down</div>
                             <div class="workflow-description">Break prompts down into the smallest tasks you can, then
                                 make them smaller</div>
                         </div>
-                        <div class="workflow-box">
+                        <div class="workflow-box hover-quality-box">
                             <div class="workflow-title"><span class="workflow-icon">📋</span> Persist Plans</div>
                             <div class="workflow-description">Ask for a plan to be persisted to a markdown file with
                                 checkboxes</div>
                         </div>
-                        <div class="workflow-box">
+                        <div class="workflow-box hover-quality-box">
                             <div class="workflow-title"><span class="workflow-icon">🔍</span> Be Critical of Plans</div>
                             <div class="workflow-description">Be very critical of the plan</div>
                         </div>
-                        <div class="workflow-box">
+                        <div class="workflow-box hover-quality-box">
                             <div class="workflow-title"><span class="workflow-icon">🎯</span> Be Specific</div>
                             <div class="workflow-description">Be very specific</div>
                         </div>
-                        <div class="workflow-box">
+                        <div class="workflow-box hover-quality-box">
                             <div class="workflow-title"><span class="workflow-icon">🌐</span> Provide Maximum Context
                             </div>
                             <div class="workflow-description">Give as much context as possible, specify files where you
@@ -233,20 +212,17 @@
         </div>
     </div>
 
+    <script src="../index.js"></script>
     <script src="../main.js"></script>
     <script>
         let currentStep = -1; // Start at -1 so first goToNext() shows item 0
         const totalSteps = 5; // Number of workflow boxes
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Check if we should skip animations and show all items
-            const urlParams = new URLSearchParams(window.location.search);
-            const skipAnimations = urlParams.get('skipAnimations') === 'true';
-            
-            // Also check if the global no-animations class is applied (from main.js)
+            // Check if animations should be skipped (handled by main.js no-animations class)
             const hasNoAnimations = document.body.classList.contains('no-animations');
             
-            if (skipAnimations || hasNoAnimations) {
+            if (hasNoAnimations) {
                 // Show all items immediately
                 const boxes = document.querySelectorAll('.workflow-box');
                 boxes.forEach(box => {
@@ -254,22 +230,12 @@
                     box.classList.add('visible');
                 });
                 currentStep = totalSteps - 1; // Set to last step
-                
-                // Clean up URL parameter if present
-                if (skipAnimations) {
-                    const url = new URL(window.location);
-                    url.searchParams.delete('skipAnimations');
-                    window.history.replaceState({}, '', url);
-                }
             } else {
                 // Normal visit - show first item on load
                 currentStep = 0;
                 showWorkflowBox(0);
             }
         });
-
-        // Set navigation paths for main.js to handle
-        setSlideNavigation('04-coding.html', '04-coding-demo.html');
 
         // Set custom navigation handlers for internal slide logic
         setCustomNavigationHandlers(

@@ -7,6 +7,13 @@ window.slideNavigation = window.slideNavigation || {
     next: null
 };
 
+// Progressive Reveal Framework
+window.progressiveReveal = window.progressiveReveal || {
+    currentStep: 0,
+    totalSteps: 0,
+    enabled: false
+};
+
 // Custom navigation handlers for slides with internal logic
 window.slideCustomHandlers = window.slideCustomHandlers || {
     onNext: null,
@@ -14,24 +21,37 @@ window.slideCustomHandlers = window.slideCustomHandlers || {
 };
 
 // Common keyboard navigation handler
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if this slide should skip animations (coming from back navigation or revisiting)
+document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const skipAnimations = urlParams.get('skipAnimations') === 'true';
-    
     if (skipAnimations) {
         document.body.classList.add('no-animations');
-        // Remove the parameter from URL without reloading
         const url = new URL(window.location);
         url.searchParams.delete('skipAnimations');
         window.history.replaceState({}, '', url);
     } else {
-        // Only mark as visited if we're NOT skipping animations (i.e., first time visiting)
         markSlideAsVisited(window.location.pathname);
     }
 
+    // Try to auto-configure navigation from slide index
+    // This will be overridden by any manual setSlideNavigation calls
+    setTimeout(() => {
+        if (!window.slideNavigation || (!window.slideNavigation.previous && !window.slideNavigation.next)) {
+            autoConfigureSlideNavigation();
+        }
+    }, 50);
+
+    // Auto-enable progressive reveal if slide has reveal elements
+    const revealElements = document.querySelectorAll('[class*="reveal-on-next-"]');
+    if (revealElements.length > 0) {
+        enableProgressiveReveal();
+    }
+
+    // Initialize progressive reveal if enabled
+    initializeProgressiveReveal();
+
     // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowRight' || e.key === ' ') {
             e.preventDefault();
             goToNext();
@@ -51,6 +71,82 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCommonInteractions();
 });
 
+// Progressive Reveal Framework Functions
+function enableProgressiveReveal() {
+    window.progressiveReveal.enabled = true;
+
+    // Count total reveal steps
+    const revealElements = document.querySelectorAll('[class*="reveal-on-next-"]');
+    let maxStep = 0;
+    revealElements.forEach(element => {
+        const classes = element.className.split(' ');
+        classes.forEach(cls => {
+            const match = cls.match(/reveal-on-next-(\d+)/);
+            if (match) {
+                maxStep = Math.max(maxStep, parseInt(match[1]));
+            }
+        });
+    });
+
+    window.progressiveReveal.totalSteps = maxStep;
+    window.progressiveReveal.currentStep = 0;
+
+    // Set up custom navigation
+    setCustomNavigationHandlers(
+        function () { // onNext
+            if (window.progressiveReveal.currentStep < window.progressiveReveal.totalSteps) {
+                window.progressiveReveal.currentStep++;
+                revealNextStep();
+                return false; // Handle internally
+            }
+            return true; // Proceed to next slide
+        },
+        function () { // onPrevious
+            return true; // Always go to previous slide
+        }
+    );
+}
+
+function initializeProgressiveReveal() {
+    if (!window.progressiveReveal.enabled) return;
+
+    const hasNoAnimations = document.body.classList.contains('no-animations');
+
+    if (hasNoAnimations) {
+        // Show all reveal elements immediately
+        const allRevealElements = document.querySelectorAll('[class*="reveal-on-"]');
+        allRevealElements.forEach(element => {
+            element.style.transition = 'none';
+            element.classList.add('reveal-visible');
+        });
+        window.progressiveReveal.currentStep = window.progressiveReveal.totalSteps;
+    } else {
+        // Normal initialization - elements are already hidden by CSS
+        // reveal-on-load elements are shown by CSS
+    }
+}
+
+function revealNextStep() {
+    const elementsToReveal = document.querySelectorAll(`.reveal-on-next-${window.progressiveReveal.currentStep}`);
+    elementsToReveal.forEach(element => {
+        element.classList.add('reveal-visible');
+    });
+}
+
+function resetProgressiveReveal() {
+    if (!window.progressiveReveal.enabled) return;
+
+    // Reset step counter
+    window.progressiveReveal.currentStep = 0;
+
+    // Hide all reveal elements except reveal-on-load
+    const allRevealElements = document.querySelectorAll('[class*="reveal-on-next-"]');
+    allRevealElements.forEach(element => {
+        element.classList.remove('reveal-visible');
+        element.style.transition = ''; // Restore transitions
+    });
+}
+
 // Navigation functions
 function goToPrevious() {
     // Check if slide has custom previous handler
@@ -61,7 +157,7 @@ function goToPrevious() {
             return;
         }
     }
-    
+
     // Default slide-to-slide navigation
     if (window.slideNavigation.previous) {
         // Add parameter to indicate this is backward navigation
@@ -84,11 +180,11 @@ function goToNext() {
             return;
         }
     }
-    
+
     // Default slide-to-slide navigation
     if (window.slideNavigation.next) {
         const nextUrl = window.slideNavigation.next;
-        
+
         // Check if the target slide has been visited before
         if (hasSlideBeenVisited(getSlidePathFromUrl(nextUrl))) {
             // Add parameter to skip animations for revisited slides
@@ -107,66 +203,74 @@ function goToNext() {
 
 // Common interactive element initialization
 function initializeCommonInteractions() {
-    // Timeline cards hover effects (for intro slide)
-    const timelineCards = document.querySelectorAll('.timeline-card');
-    const stepIndicators = document.querySelectorAll('.step-indicator');
-    
-    timelineCards.forEach((card) => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(-3px)';
+    // Standardized hover effects configuration
+    const hoverConfigs = [
+        {
+            selectors: ['.timeline-card'],
+            enter: 'translateY(-8px)',
+            leave: 'translateY(-3px)'
+        },
+        {
+            selectors: ['.step-indicator'],
+            enter: 'translateX(-50%) scale(1.1)',
+            leave: 'translateX(-50%) scale(1)'
+        },
+        {
+            selectors: ['.tool-card', '.quality-box'],
+            enter: 'translateY(-8px) scale(1.02)',
+            leave: 'translateY(0) scale(1)'
+        },
+        {
+            selectors: ['.demo-card', '.step-card', '.feature-card'],
+            enter: 'translateY(-5px)',
+            leave: 'translateY(0)'
+        },
+        {
+            selectors: ['.refinement-card'],
+            enter: 'translateY(-8px)',
+            leave: 'translateY(-5px)'
+        }
+    ];
+
+    // Apply standardized hover effects
+    hoverConfigs.forEach(config => {
+        config.selectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.addEventListener('mouseenter', function () {
+                    this.style.transform = config.enter;
+                });
+                element.addEventListener('mouseleave', function () {
+                    this.style.transform = config.leave;
+                });
+            });
         });
     });
 
-    stepIndicators.forEach((indicator) => {
-        indicator.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(-50%) scale(1.1)';
+    // Special case: Story cards with shadow effects
+    const storyCards = document.querySelectorAll('.story-card');
+    storyCards.forEach((card) => {
+        card.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+            this.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
         });
         
-        indicator.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(-50%) scale(1)';
-        });
-    });
-
-    // Tool cards hover effects (for tools slide)
-    const toolCards = document.querySelectorAll('.tool-card');
-    
-    toolCards.forEach((card) => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
+        card.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
         });
     });
 
-    // Quality boxes hover effects (for coding slides)
-    const qualityBoxes = document.querySelectorAll('.quality-box');
-    
-    qualityBoxes.forEach((box) => {
-        box.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        box.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Demo cards hover effects (for various slides)
-    const demoCards = document.querySelectorAll('.demo-card, .step-card, .feature-card');
-    
-    demoCards.forEach((card) => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
+    // Click animation for benefit items
+    const benefitItems = document.querySelectorAll('.benefit-item');
+    benefitItems.forEach(item => {
+        item.addEventListener('click', function () {
+            this.style.transform = 'scale(0.95)';
+            this.style.background = 'rgba(255, 255, 255, 0.4)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+                this.style.background = 'rgba(255, 255, 255, 0.2)';
+            }, 150);
         });
     });
 }
@@ -242,6 +346,18 @@ function setSlideNavigation(previousUrl, nextUrl) {
     console.log('Slide navigation configured:', window.slideNavigation);
 }
 
+// Auto-configure navigation using slide index if available
+function autoConfigureSlideNavigation() {
+    if (window.slideIndex && typeof window.slideIndex.autoConfigureNavigation === 'function') {
+        const navConfig = window.slideIndex.autoConfigureNavigation();
+        if (navConfig) {
+            console.log('Navigation auto-configured from index:', navConfig);
+            return true;
+        }
+    }
+    return false;
+}
+
 function setCustomNavigationHandlers(onNext, onPrevious) {
     window.slideCustomHandlers = {
         onNext: onNext,
@@ -262,23 +378,23 @@ function resetSession() {
     try {
         // Clear visited slides from session storage
         sessionStorage.removeItem('visitedSlides');
-        
+
         // Remove no-animations class if present
         document.body.classList.remove('no-animations');
-        
+
         // Reset current slide state if it has resetable elements
         resetCurrentSlideState();
-        
+
         // Show confirmation message
         console.log('Session reset! All slide states cleared. Animations will now play on all slides.');
-        
+
         // Optional: Show a brief visual confirmation
         const originalTitle = document.title;
         document.title = '✨ Session Reset';
         setTimeout(() => {
             document.title = originalTitle;
         }, 1500);
-        
+
     } catch (e) {
         console.warn('Could not reset session:', e);
     }
@@ -286,27 +402,30 @@ function resetSession() {
 
 // Reset the current slide's internal state
 function resetCurrentSlideState() {
+    // Reset progressive reveal framework
+    resetProgressiveReveal();
+
     // Reset workflow slide state if on that slide
     if (typeof currentStep !== 'undefined' && typeof totalSteps !== 'undefined') {
         // This is likely the workflow slide - reset it
         currentStep = -1;
-        
+
         // Hide all workflow boxes
         const boxes = document.querySelectorAll('.workflow-box');
         boxes.forEach(box => {
             box.classList.remove('visible');
             box.style.transition = ''; // Restore transitions
         });
-        
+
         console.log('Reset workflow slide state');
     }
-    
+
     // Reset any other slide-specific states
     // Hide any elements that should be hidden initially
     const visibleElements = document.querySelectorAll('.visible');
     visibleElements.forEach(element => {
         // Only reset elements that look like they're part of progressive reveal
-        if (element.classList.contains('workflow-box') || 
+        if (element.classList.contains('workflow-box') ||
             element.classList.contains('refinement-card') ||
             element.classList.contains('step-card')) {
             element.classList.remove('visible');

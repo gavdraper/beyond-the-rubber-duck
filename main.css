@@ -1,5 +1,51 @@
 /* Common CSS for all slides in the AI presentation */
 
+/* Progressive Reveal Framework */
+.reveal-on-load,
+.reveal-on-next-1,
+.reveal-on-next-2,
+.reveal-on-next-3,
+.reveal-on-next-4,
+.reveal-on-next-5,
+.reveal-on-next-6,
+.reveal-on-next-7,
+.reveal-on-next-8,
+.reveal-on-next-9 {
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reveal-on-load {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.reveal-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Disable transitions when animations are disabled */
+.no-animations .reveal-on-load,
+.no-animations .reveal-on-next-1,
+.no-animations .reveal-on-next-2,
+.no-animations .reveal-on-next-3,
+.no-animations .reveal-on-next-4,
+.no-animations .reveal-on-next-5,
+.no-animations .reveal-on-next-6,
+.no-animations .reveal-on-next-7,
+.no-animations .reveal-on-next-8,
+.no-animations .reveal-on-next-9 {
+    transition: none !important;
+}
+
+.no-animations .reveal-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+}
+
 /* Reset styles */
 * {
     margin: 0;
@@ -996,6 +1042,78 @@ body {
     50% {
         transform: scale(1.1);
     }
+}
+
+/* Standardized hover effects */
+.hover-lift-small {
+    transition: all 0.3s ease;
+}
+
+.hover-lift-small:hover {
+    transform: translateY(-2px) !important;
+}
+
+.hover-lift-medium {
+    transition: all 0.3s ease;
+}
+
+.hover-lift-medium:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.hover-lift-large {
+    transition: all 0.3s ease;
+}
+
+.hover-lift-large:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.hover-scale-icon .card-icon {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale-icon:hover .card-icon {
+    transform: scale(1.1) !important;
+}
+
+.hover-scale-icon-large .card-icon {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale-icon-large:hover .card-icon {
+    transform: scale(1.15) !important;
+}
+
+.hover-quality-box {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border: 2px solid rgba(253, 126, 20, 0.1);
+}
+
+.hover-quality-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #fd7e14, #e67e22);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.hover-quality-box:hover::before {
+    transform: scaleX(1) !important;
+}
+
+.hover-quality-box:hover {
+    transform: translateY(-10px) scale(1.02) !important;
+    box-shadow: 0 15px 40px rgba(253, 126, 20, 0.15) !important;
+    border-color: rgba(253, 126, 20, 0.3) !important;
 }
 
 /* No animations class - disables all animations when going back */

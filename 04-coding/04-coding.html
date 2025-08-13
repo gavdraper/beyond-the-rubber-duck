@@ -9,36 +9,10 @@
     <style>
         .quality-box {
             background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
-            border: 1px solid #dee2e6;
             border-radius: 20px;
             padding: 40px 25px;
             text-align: center;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quality-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #fd7e14, #e67e22);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .quality-box:hover::before {
-            transform: scaleX(1);
-        }
-
-        .quality-box:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(253, 126, 20, 0.15);
-            border-color: rgba(253, 126, 20, 0.3);
         }
 
         .quality-icon {
@@ -105,19 +79,19 @@
                 </div>
                 <div class="qualities-container">
                     <div class="qualities-grid">
-                        <div class="quality-box">
+                        <div class="quality-box hover-quality-box">
                             <span class="quality-icon">⚡</span>
                             <div class="quality-title">Over Enthusiastic</div>
                             <div class="quality-description">Ready to tackle any coding challenge with boundless energy
                                 and excitement!</div>
                         </div>
-                        <div class="quality-box">
+                        <div class="quality-box hover-quality-box">
                             <span class="quality-icon">🎯</span>
                             <div class="quality-title">Desperate to Please</div>
                             <div class="quality-description">Always eager to help and make sure every requirement is met
                                 perfectly.</div>
                         </div>
-                        <div class="quality-box">
+                        <div class="quality-box hover-quality-box">
                             <span class="quality-icon">🎓</span>
                             <div class="quality-title">Straight Out of College</div>
                             <div class="quality-description">Fresh perspective with the latest knowledge and eagerness
@@ -140,8 +114,8 @@
         </div>
     </div>
 
+    <script src="../index.js"></script>
     <script src="../main.js"></script>
-    <script>setSlideNavigation('../03-refinement/02-refinement.html', '04-coding-workflows.html');</script>
 </body>
 
 </html>
