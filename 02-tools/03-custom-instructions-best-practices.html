@@ -12,24 +12,8 @@
             gap: 40px;
         }
 
-        .instruction-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .instruction-card.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        .instruction-card.visible:hover {
+        .instruction-card.reveal-visible:hover {
             transform: translateY(-8px) scale(1.02) !important;
-        }
-
-        /* Override no-animations for essential visibility */
-        .no-animations .instruction-card.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            transition: none !important;
         }
     </style>
 </head>
@@ -45,7 +29,7 @@
         <div class="content">
             <div class="instructions-layout">
                 <div class="main-content">
-                    <div class="instruction-card">
+                    <div class="instruction-card reveal-on-load">
                         <div class="card-header">
                             <span class="card-icon">🤖</span>
                             <h3 class="card-title">Agent Behaviors</h3>
@@ -76,7 +60,7 @@
                         </div>
                     </div>
 
-                    <div class="instruction-card">
+                    <div class="instruction-card reveal-on-next-1">
                         <div class="card-header">
                             <span class="card-icon">📋</span>
                             <h3 class="card-title">Project Documentation</h3>
@@ -132,92 +116,8 @@
         </div>
     </div>
 
+    <script src="../index.js"></script>
     <script src="../main.js"></script>
-    <script>
-        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
-        const totalSteps = 2; // Number of instruction cards
-
-        // Immediately force cards to be hidden before any other code runs
-        const style = document.createElement('style');
-        style.innerHTML = '.instruction-card { opacity: 0 !important; transform: translateY(30px) !important; }';
-        document.head.appendChild(style);
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Force all cards to hidden state first
-            const cards = document.querySelectorAll('.instruction-card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.classList.remove('visible');
-            });
-
-            // Check if we should skip animations and show all items
-            const urlParams = new URLSearchParams(window.location.search);
-            const skipAnimations = urlParams.get('skipAnimations') === 'true';
-            
-            // Also check if the global no-animations class is applied (from main.js)
-            const hasNoAnimations = document.body.classList.contains('no-animations');
-            
-            if (skipAnimations || hasNoAnimations) {
-                // Show all items immediately
-                cards.forEach(card => {
-                    card.style.transition = 'none'; // Disable transitions
-                    card.classList.add('visible');
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                });
-                currentStep = totalSteps - 1; // Set to last step
-                
-                // Clean up URL parameter if present
-                if (skipAnimations) {
-                    const url = new URL(window.location);
-                    url.searchParams.delete('skipAnimations');
-                    window.history.replaceState({}, '', url);
-                }
-            } else {
-                // Normal visit - show first item immediately
-                currentStep = 0;
-                showInstructionCard(0);
-            }
-        });
-
-        // Set navigation paths for main.js to handle
-        setSlideNavigation('./03-custom-instructions.html', '../03-refinement/01-refinement.html');
-
-        // Set custom navigation handlers for internal slide logic
-        setCustomNavigationHandlers(
-            // onNext handler
-            function() {
-                if (currentStep < totalSteps - 1) {
-                    currentStep++;
-                    showInstructionCard(currentStep);
-                    return false; // Handled internally, don't proceed to default navigation
-                } else {
-                    // All items visible, proceed to default navigation (next slide)
-                    return true;
-                }
-            },
-            // onPrevious handler
-            function() {
-                // Always go to previous slide for this workflow
-                return true; // Proceed to default navigation
-            }
-        );
-
-        function showInstructionCard(index) {
-            const cards = document.querySelectorAll('.instruction-card');
-            if (cards[index]) {
-                cards[index].classList.add('visible');
-            }
-        }
-
-        function showAllInstructionCards() {
-            const cards = document.querySelectorAll('.instruction-card');
-            cards.forEach(card => {
-                card.classList.add('visible');
-            });
-        }
-    </script>
 </body>
 
 </html>

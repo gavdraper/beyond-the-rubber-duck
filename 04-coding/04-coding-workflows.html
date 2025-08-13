@@ -63,20 +63,6 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .workflow-box.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* Override no-animations for essential visibility */
-        .no-animations .workflow-box.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            transition: none !important;
         }
 
 
@@ -170,25 +156,25 @@
             <div class="workflow-info">
                 <div class="workflows-container">
                     <div class="workflows-grid">
-                        <div class="workflow-box hover-quality-box">
+                        <div class="workflow-box hover-quality-box reveal-on-load">
                             <div class="workflow-title"><span class="workflow-icon">⚡</span> Break Prompts Down</div>
                             <div class="workflow-description">Break prompts down into the smallest tasks you can, then
                                 make them smaller</div>
                         </div>
-                        <div class="workflow-box hover-quality-box">
+                        <div class="workflow-box hover-quality-box reveal-on-next-1">
                             <div class="workflow-title"><span class="workflow-icon">📋</span> Persist Plans</div>
                             <div class="workflow-description">Ask for a plan to be persisted to a markdown file with
                                 checkboxes</div>
                         </div>
-                        <div class="workflow-box hover-quality-box">
+                        <div class="workflow-box hover-quality-box reveal-on-next-2">
                             <div class="workflow-title"><span class="workflow-icon">🔍</span> Be Critical of Plans</div>
                             <div class="workflow-description">Be very critical of the plan</div>
                         </div>
-                        <div class="workflow-box hover-quality-box">
+                        <div class="workflow-box hover-quality-box reveal-on-next-3">
                             <div class="workflow-title"><span class="workflow-icon">🎯</span> Be Specific</div>
                             <div class="workflow-description">Be very specific</div>
                         </div>
-                        <div class="workflow-box hover-quality-box">
+                        <div class="workflow-box hover-quality-box reveal-on-next-4">
                             <div class="workflow-title"><span class="workflow-icon">🌐</span> Provide Maximum Context
                             </div>
                             <div class="workflow-description">Give as much context as possible, specify files where you
@@ -214,63 +200,6 @@
 
     <script src="../index.js"></script>
     <script src="../main.js"></script>
-    <script>
-        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
-        const totalSteps = 5; // Number of workflow boxes
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if animations should be skipped (handled by main.js no-animations class)
-            const hasNoAnimations = document.body.classList.contains('no-animations');
-            
-            if (hasNoAnimations) {
-                // Show all items immediately
-                const boxes = document.querySelectorAll('.workflow-box');
-                boxes.forEach(box => {
-                    box.style.transition = 'none'; // Disable transitions
-                    box.classList.add('visible');
-                });
-                currentStep = totalSteps - 1; // Set to last step
-            } else {
-                // Normal visit - show first item on load
-                currentStep = 0;
-                showWorkflowBox(0);
-            }
-        });
-
-        // Set custom navigation handlers for internal slide logic
-        setCustomNavigationHandlers(
-            // onNext handler
-            function() {
-                if (currentStep < totalSteps - 1) {
-                    currentStep++;
-                    showWorkflowBox(currentStep);
-                    return false; // Handled internally, don't proceed to default navigation
-                } else {
-                    // All items visible, proceed to default navigation (next slide)
-                    return true;
-                }
-            },
-            // onPrevious handler
-            function() {
-                // Always go to previous slide for this workflow
-                return true; // Proceed to default navigation
-            }
-        );
-
-        function showWorkflowBox(index) {
-            const boxes = document.querySelectorAll('.workflow-box');
-            if (boxes[index]) {
-                boxes[index].classList.add('visible');
-            }
-        }
-
-        function showAllWorkflowBoxes() {
-            const boxes = document.querySelectorAll('.workflow-box');
-            boxes.forEach(box => {
-                box.classList.add('visible');
-            });
-        }
-    </script>
 </body>
 
 </html>

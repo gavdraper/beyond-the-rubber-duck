@@ -7,24 +7,8 @@
     <title>AI Development Tools</title>
     <link rel="stylesheet" href="../main.css">
     <style>
-        .tool-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .tool-card.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        .tool-card.visible:hover {
+        .tool-card.reveal-visible:hover {
             transform: translateY(-8px) scale(1.02) !important;
-        }
-
-        /* Override no-animations for essential visibility */
-        .no-animations .tool-card.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            transition: none !important;
         }
     </style>
 </head>
@@ -39,7 +23,7 @@
 
         <div class="content">
             <div class="tools-showcase">
-                <div class="tool-card">
+                <div class="tool-card reveal-on-load">
                     <div class="tool-header">
                         <span class="card-icon">🐙</span>
                         <h3 class="card-title">GitHub Copilot</h3>
@@ -53,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="tool-card">
+                <div class="tool-card reveal-on-next-1">
                     <div class="tool-header">
                         <span class="card-icon">🤖</span>
                         <h3 class="card-title">Claude Code</h3>
@@ -68,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="tool-card">
+                <div class="tool-card reveal-on-next-2">
                     <div class="tool-header">
                         <span class="card-icon">💬</span>
                         <h3 class="card-title">ChatGPT</h3>
@@ -83,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="tool-card">
+                <div class="tool-card reveal-on-next-3">
                     <div class="tool-header">
                         <span class="card-icon">💎</span>
                         <h3 class="card-title">Gemini CLI</h3>
@@ -125,92 +109,8 @@
         </div>
     </div>
 
+    <script src="../index.js"></script>
     <script src="../main.js"></script>
-    <script>
-        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
-        const totalSteps = 4; // Number of tool cards
-
-        // Immediately force cards to be hidden before any other code runs
-        const style = document.createElement('style');
-        style.innerHTML = '.tool-card { opacity: 0 !important; transform: translateY(30px) !important; }';
-        document.head.appendChild(style);
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Force all cards to hidden state first
-            const cards = document.querySelectorAll('.tool-card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.classList.remove('visible');
-            });
-
-            // Check if we should skip animations and show all items
-            const urlParams = new URLSearchParams(window.location.search);
-            const skipAnimations = urlParams.get('skipAnimations') === 'true';
-            
-            // Also check if the global no-animations class is applied (from main.js)
-            const hasNoAnimations = document.body.classList.contains('no-animations');
-            
-            if (skipAnimations || hasNoAnimations) {
-                // Show all items immediately
-                cards.forEach(card => {
-                    card.style.transition = 'none'; // Disable transitions
-                    card.classList.add('visible');
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                });
-                currentStep = totalSteps - 1; // Set to last step
-                
-                // Clean up URL parameter if present
-                if (skipAnimations) {
-                    const url = new URL(window.location);
-                    url.searchParams.delete('skipAnimations');
-                    window.history.replaceState({}, '', url);
-                }
-            } else {
-                // Normal visit - show first item immediately
-                currentStep = 0;
-                showToolCard(0);
-            }
-        });
-
-        // Set navigation paths for main.js to handle
-        setSlideNavigation('../01-intro/01-intro.html', './03-custom-instructions.html');
-
-        // Set custom navigation handlers for internal slide logic
-        setCustomNavigationHandlers(
-            // onNext handler
-            function() {
-                if (currentStep < totalSteps - 1) {
-                    currentStep++;
-                    showToolCard(currentStep);
-                    return false; // Handled internally, don't proceed to default navigation
-                } else {
-                    // All items visible, proceed to default navigation (next slide)
-                    return true;
-                }
-            },
-            // onPrevious handler
-            function() {
-                // Always go to previous slide for this workflow
-                return true; // Proceed to default navigation
-            }
-        );
-
-        function showToolCard(index) {
-            const cards = document.querySelectorAll('.tool-card');
-            if (cards[index]) {
-                cards[index].classList.add('visible');
-            }
-        }
-
-        function showAllToolCards() {
-            const cards = document.querySelectorAll('.tool-card');
-            cards.forEach(card => {
-                card.classList.add('visible');
-            });
-        }
-    </script>
 </body>
 
 </html>

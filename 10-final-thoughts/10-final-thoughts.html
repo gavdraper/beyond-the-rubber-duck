@@ -26,14 +26,6 @@
             padding: 25px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             border-left: 4px solid;
-            opacity: 0 !important;
-            transform: translateY(30px) !important;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .point-card.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
         }
 
         .point-card:nth-child(1) {
@@ -82,22 +74,6 @@
             padding: 30px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             text-align: center;
-            opacity: 0 !important;
-            transform: translateY(30px) !important;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .closing-message.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* Override no-animations for essential visibility */
-        .no-animations .point-card.visible,
-        .no-animations .closing-message.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            transition: none !important;
         }
 
         .closing-text {
@@ -137,7 +113,7 @@
         <div class="content">
             <div class="final-thoughts">
                 <div class="key-points">
-                    <div class="point-card">
+                    <div class="point-card reveal-on-load">
                         <div class="point-header">
                             <span class="point-icon">📚</span>
                             <h3 class="point-title">Build Custom Instructions</h3>
@@ -145,7 +121,7 @@
                         <p class="point-text">Set up instruction files in both your project and personal directory for consistent AI behavior</p>
                     </div>
 
-                    <div class="point-card">
+                    <div class="point-card reveal-on-next-1">
                         <div class="point-header">
                             <span class="point-icon">✅</span>
                             <h3 class="point-title">Always Take the Review</h3>
@@ -153,7 +129,7 @@
                         <p class="point-text">Use AI for code reviews, security checks, and architectural feedback - it's free quality assurance</p>
                     </div>
 
-                    <div class="point-card">
+                    <div class="point-card reveal-on-next-2">
                         <div class="point-header">
                             <span class="point-icon">🔍</span>
                             <h3 class="point-title">Don't Trust, Verify</h3>
@@ -161,7 +137,7 @@
                         <p class="point-text">AI can make mistakes - always validate suggestions and test thoroughly</p>
                     </div>
 
-                    <div class="point-card">
+                    <div class="point-card reveal-on-next-3">
                         <div class="point-header">
                             <span class="point-icon">🚀</span>
                             <h3 class="point-title">Engineers Using AI Win</h3>
@@ -170,7 +146,7 @@
                     </div>
                 </div>
 
-                <div class="closing-message">
+                <div class="closing-message reveal-on-next-4">
                     <p class="closing-text">
                         <span class="emphasis">Share your results</span> with the rest of Engineering. 
                         AI is a powerful tool for learning, problem-solving, and accelerating development.
@@ -203,92 +179,30 @@
         </div>
     </div>
 
+    <script src="../index.js"></script>
     <script src="../main.js"></script>
     <script>
-        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
-        const totalSteps = 5; // 4 point cards + 1 closing message
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if we should skip animations and show all items
-            const urlParams = new URLSearchParams(window.location.search);
-            const skipAnimations = urlParams.get('skipAnimations') === 'true';
-            
-            // Also check if the global no-animations class is applied (from main.js)
-            const hasNoAnimations = document.body.classList.contains('no-animations');
-            
-            if (skipAnimations || hasNoAnimations) {
-                // Show all items immediately
-                const cards = document.querySelectorAll('.point-card');
-                const closingMessage = document.querySelector('.closing-message');
-                
-                cards.forEach(card => {
-                    card.style.transition = 'none'; // Disable transitions
-                    card.classList.add('visible');
-                });
-                
-                if (closingMessage) {
-                    closingMessage.style.transition = 'none';
-                    closingMessage.classList.add('visible');
-                }
-                
-                currentStep = totalSteps - 1; // Set to last step
-                
-                // Clean up URL parameter if present
-                if (skipAnimations) {
-                    const url = new URL(window.location);
-                    url.searchParams.delete('skipAnimations');
-                    window.history.replaceState({}, '', url);
-                }
-            } else {
-                // Normal visit - show first item on load
-                currentStep = 0;
-                showItem(0);
-            }
-        });
-
-        // Set navigation for this specific slide
-        setSlideNavigation('../09-questionnaire-feedback/08-questionnaire-feedback.html', null);
-
-        // Set custom navigation handlers for internal slide logic
+        // Set custom navigation handlers for final slide logic
         setCustomNavigationHandlers(
-            // onNext handler
+            // onNext handler  
             function() {
-                if (currentStep < totalSteps - 1) {
-                    currentStep++;
-                    showItem(currentStep);
-                    return false; // Handled internally, don't proceed to default navigation
-                } else {
-                    // All items visible, proceed to default navigation (next slide)
-                    return true;
+                if (window.progressiveReveal.currentStep >= window.progressiveReveal.totalSteps) {
+                    // All items visible, update button for final slide
+                    const nextBtn = document.getElementById('next-btn');
+                    if (nextBtn) {
+                        nextBtn.innerHTML = 'End<span>🎉</span>';
+                        nextBtn.classList.add('disabled');
+                        nextBtn.style.pointerEvents = 'none';
+                    }
+                    return false; // Don't navigate away
                 }
+                return false; // Let main.js handle progressive reveal
             },
             // onPrevious handler
             function() {
-                // Always go to previous slide for this workflow
-                return true; // Proceed to default navigation
+                return true; // Allow going back to previous slide
             }
         );
-
-        function showItem(index) {
-            const cards = document.querySelectorAll('.point-card');
-            const closingMessage = document.querySelector('.closing-message');
-            const nextBtn = document.getElementById('next-btn');
-            
-            if (index < 4 && cards[index]) {
-                // Show point card
-                cards[index].classList.add('visible');
-            } else if (index === 4 && closingMessage) {
-                // Show closing message
-                closingMessage.classList.add('visible');
-            }
-            
-            // Update next button when all items are shown
-            if (index >= totalSteps - 1) {
-                nextBtn.innerHTML = 'End<span>🎉</span>';
-                nextBtn.classList.add('disabled');
-                nextBtn.style.pointerEvents = 'none';
-            }
-        }
     </script>
 </body>
 

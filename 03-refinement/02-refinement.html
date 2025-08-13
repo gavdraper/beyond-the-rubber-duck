@@ -226,6 +226,7 @@
         </div>
     </div>
 
+    <script src="../index.js"></script>
     <script src="../main.js"></script>
     <script>
         let isFlipped = false;
@@ -241,55 +242,48 @@
             }
         }
 
-        function goToPrevious() {
-            if (isFlipped) {
-                // If card is flipped, flip it back
-                flipCard();
-            } else {
-                // Navigate to previous slide
-                const previousUrl = './01-refinement.html';
-                const separator = previousUrl.includes('?') ? '&' : '?';
-                const urlWithParam = previousUrl + separator + 'skipAnimations=true';
-                window.location.href = urlWithParam;
+        // Set custom navigation handlers for flip card logic
+        setCustomNavigationHandlers(
+            // onNext handler
+            function() {
+                if (!isFlipped) {
+                    // Always flip to show the output on first Next click
+                    flipCard();
+                    return false; // Handle internally
+                } else {
+                    // Navigate to next slide when already flipped
+                    return true; // Proceed to default navigation
+                }
+            },
+            // onPrevious handler
+            function() {
+                if (isFlipped) {
+                    // If card is flipped, flip it back
+                    flipCard();
+                    return false; // Handle internally
+                } else {
+                    // Navigate to previous slide
+                    return true; // Proceed to default navigation
+                }
             }
-        }
-
-        function goToNext() {
-            if (!isFlipped) {
-                // Always flip to show the output on first Next click
-                flipCard();
-            } else {
-                // Navigate to next slide when already flipped
-                window.location.href = '../04-coding/04-coding.html';
-            }
-        }
+        );
 
         document.addEventListener('DOMContentLoaded', function () {
             // Check if we should skip animations and show flipped state
             const urlParams = new URLSearchParams(window.location.search);
             const skipAnimations = urlParams.get('skipAnimations') === 'true';
             
-            if (skipAnimations) {
+            if (skipAnimations || document.body.classList.contains('no-animations')) {
                 // Show flipped state immediately
                 flipCard();
                 
                 // Clean up URL parameter
-                const url = new URL(window.location);
-                url.searchParams.delete('skipAnimations');
-                window.history.replaceState({}, '', url);
-            }
-
-            // Keyboard navigation
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    goToNext();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    goToPrevious();
+                if (skipAnimations) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('skipAnimations');
+                    window.history.replaceState({}, '', url);
                 }
-            });
-
+            }
         });
     </script>
 </body>

@@ -6,25 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assistant</title>
     <link rel="stylesheet" href="../main.css">
-    <style>
-        .instruction-card {
-            opacity: 0 !important;
-            transform: translateY(30px) !important;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .instruction-card.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* Override no-animations for essential visibility */
-        .no-animations .instruction-card.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            transition: none !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -37,7 +18,7 @@
         <div class="content">
             <div class="instructions-layout">
                 <div class="main-content">
-                    <div class="instruction-card">
+                    <div class="instruction-card reveal-on-load">
                         <div class="card-header">
                             <span class="card-icon">📊</span>
                             <h3 class="card-title">Grafana Queries</h3>
@@ -45,7 +26,7 @@
                         <p>Generate complex monitoring queries and dashboards with AI assistance</p>
                     </div>
 
-                    <div class="instruction-card">
+                    <div class="instruction-card reveal-on-next-1">
                         <div class="card-header">
                             <span class="card-icon">🎓</span>
                             <h3 class="card-title">Learning</h3>
@@ -68,71 +49,8 @@
         </div>
     </div>
 
+    <script src="../index.js"></script>
     <script src="../main.js"></script>
-    <script>
-        let currentStep = -1; // Start at -1 so first goToNext() shows item 0
-        const totalSteps = 2; // Number of instruction cards
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if we should skip animations and show all items
-            const urlParams = new URLSearchParams(window.location.search);
-            const skipAnimations = urlParams.get('skipAnimations') === 'true';
-            
-            // Also check if the global no-animations class is applied (from main.js)
-            const hasNoAnimations = document.body.classList.contains('no-animations');
-            
-            if (skipAnimations || hasNoAnimations) {
-                // Show all items immediately
-                const cards = document.querySelectorAll('.instruction-card');
-                cards.forEach(card => {
-                    card.style.transition = 'none'; // Disable transitions
-                    card.classList.add('visible');
-                });
-                currentStep = totalSteps - 1; // Set to last step
-                
-                // Clean up URL parameter if present
-                if (skipAnimations) {
-                    const url = new URL(window.location);
-                    url.searchParams.delete('skipAnimations');
-                    window.history.replaceState({}, '', url);
-                }
-            } else {
-                // Normal visit - show first item on load
-                currentStep = 0;
-                showCard(0);
-            }
-        });
-
-        // Set navigation for this specific slide
-        setSlideNavigation('../07-debugging/07-debugging.html', '../09-questionnaire-feedback/08-questionnaire-feedback.html');
-
-        // Set custom navigation handlers for internal slide logic
-        setCustomNavigationHandlers(
-            // onNext handler
-            function() {
-                if (currentStep < totalSteps - 1) {
-                    currentStep++;
-                    showCard(currentStep);
-                    return false; // Handled internally, don't proceed to default navigation
-                } else {
-                    // All items visible, proceed to default navigation (next slide)
-                    return true;
-                }
-            },
-            // onPrevious handler
-            function() {
-                // Always go to previous slide for this workflow
-                return true; // Proceed to default navigation
-            }
-        );
-
-        function showCard(index) {
-            const cards = document.querySelectorAll('.instruction-card');
-            if (cards[index]) {
-                cards[index].classList.add('visible');
-            }
-        }
-    </script>
 </body>
 
 </html>
