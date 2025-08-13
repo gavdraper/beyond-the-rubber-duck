@@ -7,72 +7,58 @@ window.slideIndex = {
     slides: [
         {
             id: '01-intro',
-            title: 'Introduction to AI-Powered Development',
             path: '01-intro.html'
         },
         {
             id: '02-tools',
-            title: 'AI Development Tools',
             path: '02-tools.html'
         },
         {
             id: '03-custom-instructions',
-            title: 'Custom Instructions',
             path: '03-custom-instructions.html'
         },
         {
             id: '03-custom-instructions-best-practices',
-            title: 'Custom Instructions Best Practices',
             path: '04-custom-instructions-best-practices.html'
         },
         {
             id: '01-refinement',
-            title: 'Refinement Process',
             path: '05-refinement.html'
         },
         {
             id: '02-refinement',
-            title: 'Refinement Continued',
             path: '06-refinement.html'
         },
         {
             id: '04-coding',
-            title: 'Coding with AI',
             path: '07-coding.html'
         },
         {
             id: '04-coding-workflows',
-            title: 'Coding Workflows',
             path: '08-coding-workflows.html'
         },
         {
             id: '04-coding-demo',
-            title: 'Coding Demo',
             path: '09-coding-demo.html'
         },
         {
             id: '06-review',
-            title: 'Code Review',
             path: '10-review.html'
         },
         {
             id: '07-debugging',
-            title: 'Debugging with AI',
             path: '11-debugging.html'
         },
         {
             id: '08-assistant',
-            title: 'AI Assistant',
             path: '12-assistant.html'
         },
         {
             id: '08-questionnaire-feedback',
-            title: 'Questionnaire & Feedback',
             path: '13-questionnaire-feedback.html'
         },
         {
             id: '10-final-thoughts',
-            title: 'Final Thoughts',
             path: '14-final-thoughts.html'
         }
     ],
