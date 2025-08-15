@@ -12,12 +12,45 @@
 
     <div class="slide">
         <div class="header">
-            <h1 class="title">AI in the SDLC</h1>
-            <p class="subtitle">From Skeptic to Believer</p>
+            <h1 class="title">Beyond the Rubber Duck</h1>
+            <p class="subtitle">Your new AI companion</p>
         </div>
 
         <div class="content">
-            <img src="duck.png" alt="Duck" style="max-width: 80%; height: auto; display: block; margin: 0 auto;">
+            <div style="position: relative; width: 100%; display: flex; justify-content: center; align-items: center; min-height: 400px;">
+                <img src="duck.png" alt="Duck" style="max-width: 80%; height: auto; z-index: 2; position: relative;">
+                
+                <!-- Left side code snippets -->
+                <div class="code-snippet" id="snippet1" style="position: absolute; left: 5%; top: 20%; background: #1e1e1e; color: #00ff00; padding: 8px 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 12px; opacity: 0; animation: fadeInOut 6s infinite; animation-delay: 0s; z-index: 3;">
+                    function debug() { console.log('help!'); }
+                </div>
+                
+                <div class="code-snippet" id="snippet2" style="position: absolute; left: 2%; top: 50%; background: #2d1b69; color: #ffd700; padding: 8px 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 12px; opacity: 0; animation: fadeInOut 6s infinite; animation-delay: 2s; z-index: 3;">
+                    if (confused) { askAI(); }
+                </div>
+                
+                <div class="code-snippet" id="snippet5" style="position: absolute; left: 8%; top: 80%; background: #2c5530; color: #90ee90; padding: 8px 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 12px; opacity: 0; animation: fadeInOut 6s infinite; animation-delay: 3s; z-index: 3;">
+                    return "problem_solved";
+                </div>
+                
+                <!-- Right side code snippets -->
+                <div class="code-snippet" id="snippet3" style="position: absolute; right: 5%; top: 15%; background: #0f3460; color: #00d4aa; padding: 8px 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 12px; opacity: 0; animation: fadeInOut 6s infinite; animation-delay: 4s; z-index: 3;">
+                    // AI: Here's the solution...
+                </div>
+                
+                <div class="code-snippet" id="snippet4" style="position: absolute; right: 2%; top: 45%; background: #4a0e4e; color: #ff6b9d; padding: 8px 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 12px; opacity: 0; animation: fadeInOut 6s infinite; animation-delay: 1s; z-index: 3;">
+                    const magic = true;
+                </div>
+                
+                <style>
+                    @keyframes fadeInOut {
+                        0% { opacity: 0; transform: translateY(10px); }
+                        15% { opacity: 1; transform: translateY(0); }
+                        85% { opacity: 1; transform: translateY(0); }
+                        100% { opacity: 0; transform: translateY(-10px); }
+                    }
+                </style>
+            </div>
         </div>
 
         <div class="nav-buttons">
