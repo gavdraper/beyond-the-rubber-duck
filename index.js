@@ -38,16 +38,16 @@ window.slideIndex = {
             path: 'slides/08-coding-workflows.html'
         },
         {
-            id: '04-coding-demo',
-            path: 'slides/09-coding-demo.html'
-        },
-        {
             id: '06-review',
             path: 'slides/10-review.html'
         },
         {
             id: '07-debugging',
             path: 'slides/11-debugging.html'
+        },
+        {
+            id: '12-demo',
+            path: 'slides/12-demo.html'
         },
         {
             id: '08-questionnaire-feedback',
