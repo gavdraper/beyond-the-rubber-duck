@@ -37,3 +37,10 @@ Demo
 * Highlight how the same is achieved in Code.
 
 
+Links
+* LOTS of promots/agents/instruction files : https://github.com/github/awesome-copilot/blob/main/
+* Claude Code PRD Command : https://github.com/sbtobb/my-claude-code-workflow/blob/main/commands/prd-task-doc.md
+* Beast Mode : https://burkeholland.github.io/posts/beast-mode-3-1/
+
+
+

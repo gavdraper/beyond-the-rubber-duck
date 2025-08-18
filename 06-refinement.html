@@ -29,8 +29,8 @@
         }
 
         .flip-card {
-            width: 80%;
-            max-width: 900px;
+            width: 95%;
+            max-width: 1400px;
             height: 600px;
             position: relative;
             transform-style: preserve-3d;
@@ -100,7 +100,7 @@
         }
 
         .output-content {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
         }
 
         .story-section {
@@ -172,7 +172,7 @@
                         <div class="output-content">
                             <div
                                 style="background: #e3f2fd; padding: 8px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #2196f3;">
-                                <strong>🎯 STORY 1/5 - Real-time Feed Notifications</strong>
+                                <strong>🎯 Real-time Feed Notifications</strong>
                             </div>
 
                             <div class="story-section">
@@ -191,28 +191,22 @@
                                     <strong>Given</strong> new posts exist, <br />
                                     <strong>when</strong> I'm viewing the feed, <br />
                                     <strong>then</strong> a notification banner appears at the top
+                                    <br /><em>Evidence: Component</em>
                                     <br /><br />
                                     <strong>Given</strong> no new posts are available, <br />
                                     <strong>when</strong> I'm viewing the feed, <br />
                                     <strong>then</strong> no notification banner should be displayed
-                                    <br />...
-                                </div>
-                            </div>
-
-                            <div class="story-section">
-                                <div class="section-title">Test Cases</div>
-                                <div class="section-content">
-                                    <ul>
-                                        <li><strong>Unit:</strong> Verify notification component renders with correct
-                                            props</li>
-                                        <li><strong>Integration:</strong> Test notification triggers when new posts
-                                            detected</li>
-                                        <li><strong>E2E:</strong> Validate full user flow - new post creates visible
-                                            notification</li>
-                                        <li><strong>Manual:</strong> Confirm notification positioning and visual design
-                                        </li>
-                                        <li>...</li>
-                                    </ul>
+                                    <br /><em>Evidence: Unit</em>
+                                    <br /><br />
+                                    <strong>Given</strong> notification banner is already visible, <br />
+                                    <strong>when</strong> additional new posts arrive, <br />
+                                    <strong>then</strong> banner remains visible without duplicating
+                                    <br /><em>Evidence: Unit</em>
+                                    <br /><br />
+                                    <strong>Given</strong> notification is displayed, <br />
+                                    <strong>when</strong> I press the period (.) key, <br />
+                                    <strong>then</strong> feed scrolls to top and refreshes posts
+                                    <br /><em>Evidence: E2E</em>
                                 </div>
                             </div>
                         </div>
