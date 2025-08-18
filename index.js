@@ -14,12 +14,12 @@ window.slideIndex = {
             path: 'slides/02-tools.html'
         },
         {
-            id: '03-custom-instructions',
-            path: 'slides/03-custom-instructions.html'
+            id: '03-custom-instructions-best-practices',
+            path: 'slides/03-custom-instructions-best-practices.html'
         },
         {
-            id: '03-custom-instructions-best-practices',
-            path: 'slides/04-custom-instructions-best-practices.html'
+            id: '04-custom-instructions',
+            path: 'slides/04-custom-instructions.html'
         },
         {
             id: '01-refinement',
