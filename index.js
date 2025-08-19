@@ -7,55 +7,55 @@ window.slideIndex = {
     slides: [
         {
             id: '01-intro',
-            path: 'slides/01-intro.html'
+            path: '01-intro.html'
         },
         {
             id: '02-tools',
-            path: 'slides/02-tools.html'
+            path: '02-tools.html'
         },
         {
             id: '03-custom-instructions-best-practices',
-            path: 'slides/03-custom-instructions-best-practices.html'
+            path: '03-custom-instructions-best-practices.html'
         },
         {
             id: '04-custom-instructions',
-            path: 'slides/04-custom-instructions.html'
+            path: '04-custom-instructions.html'
         },
         {
             id: '01-refinement',
-            path: 'slides/05-refinement.html'
+            path: '05-refinement.html'
         },
         {
             id: '02-refinement',
-            path: 'slides/06-refinement.html'
+            path: '06-refinement.html'
         },
         {
             id: '04-coding',
-            path: 'slides/07-coding.html'
+            path: '07-coding.html'
         },
         {
             id: '04-coding-workflows',
-            path: 'slides/08-coding-workflows.html'
+            path: '08-coding-workflows.html'
         },
         {
             id: '06-review',
-            path: 'slides/10-review.html'
+            path: '10-review.html'
         },
         {
             id: '07-debugging',
-            path: 'slides/11-debugging.html'
+            path: '11-debugging.html'
         },
         {
             id: '12-demo',
-            path: 'slides/12-demo.html'
+            path: '12-demo.html'
         },
         {
             id: '08-questionnaire-feedback',
-            path: 'slides/13-questionnaire-feedback.html'
+            path: '13-questionnaire-feedback.html'
         },
         {
             id: '10-final-thoughts',
-            path: 'slides/14-final-thoughts.html'
+            path: '14-final-thoughts.html'
         }
     ],
 
@@ -102,7 +102,7 @@ window.slideIndex = {
         }
 
         if (currentIndex > 0) {
-            return '../' + this.slides[currentIndex - 1].path;
+            return this.slides[currentIndex - 1].path;
         }
         return null;
     },
@@ -114,7 +114,7 @@ window.slideIndex = {
         }
 
         if (currentIndex >= 0 && currentIndex < this.slides.length - 1) {
-            return '../' + this.slides[currentIndex + 1].path;
+            return this.slides[currentIndex + 1].path;
         }
         return null;
     },
