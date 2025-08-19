@@ -148,24 +148,15 @@
                     </div>
                 </div>
 
-                <!-- <div class="closing-message reveal-on-next-4">
+                <div class="closing-message reveal-on-next-4">
                     <p class="closing-text">
                         <span class="emphasis">Share your results</span> with the rest of Engineering.
                         AI is a powerful tool for learning, problem-solving, and accelerating development.
                     </p>
                     <p class="closing-text">
-                        Stay in the IDE, avoid the Google trap, and have fun exploring what AI can do for your projects!
+                        Have fun exploring what AI can do for your projects!
                     </p>
-
-                    <div style="margin-top: 30px; text-align: left;">
-                        <h4 style="color: #212529; margin-bottom: 15px; font-size: 1.1rem;">Examples to discuss:</h4>
-                        <ul style="color: #6c757d; line-height: 1.8; font-size: 0.9rem; list-style-position: inside;">
-                            <li>Asking Claude how to fix behaviors in Claude.md</li>
-                            <li>Copilot insisting it's right on async/await then changing its mind</li>
-                            <li>Building a game of Snake with AI assistance</li>
-                        </ul>
-                    </div>
-                </div> -->
+                </div>
             </div>
         </div>
 
@@ -184,45 +175,9 @@
     <script src="index.js"></script>
     <script src="main.js"></script>
     <script>
-        // Function to disable the next button on final slide
-        function disableNextButton() {
-            const nextBtn = document.getElementById('next-btn');
-            if (nextBtn && !nextBtn.classList.contains('disabled')) {
-                nextBtn.innerHTML = 'End<span>🎉</span>';
-                nextBtn.classList.add('disabled');
-                nextBtn.style.pointerEvents = 'none';
-                nextBtn.style.opacity = '0.5';
-                nextBtn.style.cursor = 'not-allowed';
-            }
-        }
-
-        // Set custom navigation handlers for final slide logic
-        setCustomNavigationHandlers(
-            // onNext handler  
-            function () {
-                if (window.progressiveReveal.currentStep >= window.progressiveReveal.totalSteps) {
-                    // All items visible and this is the final slide, disable the Next button
-                    disableNextButton();
-                    return false; // Don't navigate away
-                }
-                return false; // Let main.js handle progressive reveal
-            },
-            // onPrevious handler
-            function () {
-                return true; // Allow going back to previous slide
-            }
-        );
-
-        // Check on page load if all animations are disabled and we should immediately disable the button
-        document.addEventListener('DOMContentLoaded', function() {
-            // If animations are skipped or all progressive reveal steps are complete
-            setTimeout(() => {
-                if (document.body.classList.contains('no-animations') || 
-                    (window.progressiveReveal.enabled && window.progressiveReveal.currentStep >= window.progressiveReveal.totalSteps)) {
-                    disableNextButton();
-                }
-            }, 100); // Small delay to ensure progressive reveal is initialized
-        });
+        // Simple navigation - no special handling needed
+        // Progressive reveal will handle showing the 4 cards + closing message
+        // Then normal navigation will proceed to the next slide
     </script>
 </body>
 

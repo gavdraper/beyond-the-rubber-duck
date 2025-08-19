@@ -64,6 +64,10 @@ window.slideIndex = {
         {
             id: '10-final-thoughts',
             path: '14-final-thoughts.html'
+        },
+        {
+            id: '11-notes-resources',
+            path: '15-notes-resources.html'
         }
     ],
 

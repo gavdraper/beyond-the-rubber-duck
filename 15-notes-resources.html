@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes & Resources</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .notes-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px;
+        }
+
+        .scrollable-content {
+            max-height: 500px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 5px 30px 30px 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .notes-content h3 {
+            color: #212529;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+
+        .notes-content h4 {
+            color: #212529;
+            margin: 25px 0 15px 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            border-left: 3px solid #007bff;
+            padding-left: 12px;
+        }
+
+        .notes-content h5 {
+            color: #495057;
+            margin: 20px 0 12px 0;
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding-left: 8px;
+        }
+
+        .notes-content ul {
+            color: #495057;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .notes-content ul ul {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            color: #6c757d;
+        }
+
+        .notes-content li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+
+        .notes-content ul ul li {
+            margin-bottom: 5px;
+            padding-left: 8px;
+        }
+
+        .notes-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .notes-content a:hover {
+            text-decoration: underline;
+        }
+
+        .notes-content p {
+            color: #495057;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            font-size: 0.95rem;
+        }
+
+        .highlight-box {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box p {
+            color: #495057;
+            font-size: 0.9rem;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .highlight-box strong {
+            color: #212529;
+        }
+
+        .content {
+            padding-top: 5px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Additional Notes & Resources</h1>
+            <p class="subtitle">Extended thoughts, links, and configurations</p>
+        </div>
+
+        <div class="content">
+            <div class="notes-container">
+                <div class="scrollable-content">
+                    <div class="notes-content">
+                        <h4>Key Recommendations:</h4>
+                        <ul>
+                            <li>Build out your custom instruction files:
+                                <ul>
+                                    <li>In project (source control)</li>
+                                    <li>Personal home directory (non-project specific preferences for working with AI)</li>
+                                </ul>
+                            </li>
+                            <li>Co-pilot, not pilot</li>
+                            <li>Tell the agent what tools you have available (CLI, MCP, etc.)</li>
+                            <li>ALWAYS take the free review</li>
+                            <li>Use as a learning tool</li>
+                            <li>Don't trust anything blindly</li>
+                            <li>Try staying in the IDE and avoiding external searches</li>
+                            <li>Try working entirely in an agent terminal without opening the IDE</li>
+                            <li>Before starting any task, experiment and see what AI can do with it</li>
+                        </ul>
+
+                        <p style="margin: 15px 0; font-weight: 600; color: #495057;">Share your results with the rest of Engineering</p>
+                        <p style="color: #6c757d; font-size: 0.9rem;">AI taking jobs vs. engineers using AI taking jobs.</p>
+
+                        <div class="highlight-box">
+                            <p>
+                                <strong>Cool Claude Prompt:</strong> "Whenever you need a second opinion on a complex topic, you can run the following: 'codex exec &lt;query&gt;' to request a response from GPT."
+                            </p>
+                        </div>
+                        <h4>My Random Uses Over 2025:</h4>
+                        <ul>
+                            <li>Octopus deployment tool</li>
+                            <li>Card game: <a href="https://tworoom.gavindraper.com" target="_blank">tworoom.gavindraper.com</a></li>
+                            <li>Technical advice and guidance</li>
+                            <li>Debugging assistance</li>
+                            <li>Prototype and throw-away projects</li>
+                        </ul>
+
+                        <h4>Links:</h4>
+                        <p style="color: #6c757d; font-size: 0.9rem; margin-bottom: 10px;">
+                            This Presentation: <a href="https://github.com/gavdraper/beyond-the-rubber-duck" target="_blank">github.com/gavdraper/beyond-the-rubber-duck</a>
+                        </p>
+
+                        <h5>Configurations:</h5>
+                        <ul>
+                            <li><a href="https://github.com/gavdraper/ai-configurations" target="_blank">My work-in-progress agents/instructions</a></li>
+                            <li><a href="https://github.com/github/awesome-copilot/blob/main/" target="_blank">Collection of AI configurations</a></li>
+                            <li><a href="https://github.com/sbtobb/my-claude-code-workflow/blob/main/commands/prd-task-doc.md" target="_blank">PRD workflow example</a></li>
+                            <li><a href="https://burkeholland.github.io/posts/beast-mode-3-1/" target="_blank">Opinionated "Beast Mode" setup</a></li>
+                        </ul>
+
+                        <h5>Listening:</h5>
+                        <ul>
+                            <li><a href="https://open.spotify.com/episode/4hDowtDMT7CcWg89awjRy1" target="_blank">Measuring AI Impact (Laura Tacho at DX)</a></li>
+                            <li><a href="https://open.spotify.com/episode/58fYN0snOQS5otyG1fjl27" target="_blank">Vibe Coding (Steve Yegge)</a></li>
+                            <li><a href="https://open.spotify.com/episode/3XTdfnHeQlROSmlAHNqEUs" target="_blank">How AI Is Changing Engineering at Shopify</a></li>
+                            <li><a href="https://open.spotify.com/episode/5YkaXmLye3a96YscQ2PEBH" target="_blank">Thinking Agentic UI With Seth Juarez</a></li>
+                            <li><a href="https://open.spotify.com/episode/5Z9t0ruTfHLJ2X1y3HpGTc" target="_blank">Changing Testing Using Playwright MCP</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPrevious()">
+                <span>←</span>
+                Back
+            </button>
+            <button class="nav-btn" onclick="goToNext()" id="next-btn">
+                End
+                <span>🎉</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // This is the final slide, disable next button
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextBtn = document.getElementById('next-btn');
+            if (nextBtn) {
+                nextBtn.classList.add('disabled');
+                nextBtn.style.pointerEvents = 'none';
+                nextBtn.style.opacity = '0.6';
+                nextBtn.style.cursor = 'not-allowed';
+            }
+        });
+    </script>
+</body>
+
+</html>
