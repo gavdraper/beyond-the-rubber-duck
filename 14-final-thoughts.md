@@ -1,19 +1,23 @@
 Random
 
 - Build out your custom instruction files
-- In Project (Source control)
-- and Personal Home directory
+  - In Project (Source control)
+  - and Personal Home directory, non project specific, how you want to work with AI
 - Copilot not Pilot.
 - Tell the Agent what tools you have (CLI, MCP etc...)
 - ALWAYS take the free review
 - Use as a learning tool
 - Don't trust anything (You're absolutely right)
 - Trial always Staying in the IDE, Avoid Google etc
+- Trial not opening the IDE and fully working in an Agent Terminal
 - Before starting any task have some fun and see what AI can do with it
 
 Share your results with the rest of Engineering
 
 - AI Taking jobs vs Engineers using AI taking jobs.
+
+Cool
+Claude Prompt : "Whenever you need a second opinion on a complex topic, you can run the following: „codex exec <query>“ to request a response from GPT."
 
 My recent Use cases
 
