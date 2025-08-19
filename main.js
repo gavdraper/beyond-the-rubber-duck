@@ -196,8 +196,18 @@ function goToNext() {
             window.location.href = nextUrl;
         }
     } else {
-        // Fallback for slides that haven't been updated yet
-        console.log('Next navigation not configured for this slide');
+        // No next slide configured - this is likely the final slide
+        console.log('No next slide available - this appears to be the final slide');
+        
+        // Hide or disable the next button if it exists
+        const nextBtn = document.getElementById('next-btn');
+        if (nextBtn && !nextBtn.classList.contains('disabled')) {
+            nextBtn.innerHTML = 'End<span>🎉</span>';
+            nextBtn.classList.add('disabled');
+            nextBtn.style.pointerEvents = 'none';
+            nextBtn.style.opacity = '0.5';
+            nextBtn.style.cursor = 'not-allowed';
+        }
     }
 }
 

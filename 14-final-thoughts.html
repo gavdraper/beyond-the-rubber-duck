@@ -184,18 +184,25 @@
     <script src="index.js"></script>
     <script src="main.js"></script>
     <script>
+        // Function to disable the next button on final slide
+        function disableNextButton() {
+            const nextBtn = document.getElementById('next-btn');
+            if (nextBtn && !nextBtn.classList.contains('disabled')) {
+                nextBtn.innerHTML = 'End<span>🎉</span>';
+                nextBtn.classList.add('disabled');
+                nextBtn.style.pointerEvents = 'none';
+                nextBtn.style.opacity = '0.5';
+                nextBtn.style.cursor = 'not-allowed';
+            }
+        }
+
         // Set custom navigation handlers for final slide logic
         setCustomNavigationHandlers(
             // onNext handler  
             function () {
                 if (window.progressiveReveal.currentStep >= window.progressiveReveal.totalSteps) {
-                    // All items visible, update button for final slide
-                    const nextBtn = document.getElementById('next-btn');
-                    if (nextBtn) {
-                        nextBtn.innerHTML = 'End<span>🎉</span>';
-                        nextBtn.classList.add('disabled');
-                        nextBtn.style.pointerEvents = 'none';
-                    }
+                    // All items visible and this is the final slide, disable the Next button
+                    disableNextButton();
                     return false; // Don't navigate away
                 }
                 return false; // Let main.js handle progressive reveal
@@ -205,6 +212,17 @@
                 return true; // Allow going back to previous slide
             }
         );
+
+        // Check on page load if all animations are disabled and we should immediately disable the button
+        document.addEventListener('DOMContentLoaded', function() {
+            // If animations are skipped or all progressive reveal steps are complete
+            setTimeout(() => {
+                if (document.body.classList.contains('no-animations') || 
+                    (window.progressiveReveal.enabled && window.progressiveReveal.currentStep >= window.progressiveReveal.totalSteps)) {
+                    disableNextButton();
+                }
+            }, 100); // Small delay to ensure progressive reveal is initialized
+        });
     </script>
 </body>
 
