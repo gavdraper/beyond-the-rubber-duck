@@ -29,6 +29,7 @@ My recent Use cases
 
 ### Configurations
 
+- My Work In Progress Agents/Instructions : https://github.com/gavdraper/ai-configurations
 - Collection of AI configurations : https://github.com/github/awesome-copilot/blob/main/
 - PRD Workflow : https://github.com/sbtobb/my-claude-code-workflow/blob/main/commands/prd-task-doc.md
 - Opinionated "Beast Mode" : https://burkeholland.github.io/posts/beast-mode-3-1/
