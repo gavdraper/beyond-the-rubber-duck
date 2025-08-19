@@ -1,7 +1,6 @@
-
 Build out your custom instruction files
-    In Project (Source control)
-    and Personal Home directory
+In Project (Source control)
+and Personal Home directory
 Copilot not Pilot.
 Tell the Agent what tools you have (CLI, MCP etc...)
 ALWAYS take the free review
@@ -12,10 +11,12 @@ Before starting any task have some fun and see what AI can do with it
 
 Share your results with the rest of Engineering
 
-AI Taking jobs vs Engineerings using AI taking jobs.
+AI Taking jobs vs Engineers using AI taking jobs.
 
 Things I've used it for
 
 Octopus Tool,
 Card Game,
-Advice
+Advice,
+Debugging,
+Throw away projects
