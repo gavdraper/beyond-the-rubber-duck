@@ -14,6 +14,10 @@ window.slideIndex = {
             path: '02-tools.html'
         },
         {
+            id: '03a-context',
+            path: '03a-context.html'
+        },
+        {
             id: '03-custom-instructions-best-practices',
             path: '03-custom-instructions-best-practices.html'
         },
