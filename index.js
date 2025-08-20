@@ -22,10 +22,6 @@ window.slideIndex = {
             path: '03-custom-instructions-best-practices.html'
         },
         {
-            id: '04-custom-instructions',
-            path: '04-custom-instructions.html'
-        },
-        {
             id: '04a-personas',
             path: '04a-personas.html'
         },
