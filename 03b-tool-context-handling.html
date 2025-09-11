@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Handling: GitHub Copilot vs Claude Code</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+            height: 70vh;
+            max-width: 100%;
+        }
+
+        .tool-section {
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .copilot-section::before {
+            background: linear-gradient(135deg, #24292e 0%, #2f363d 100%);
+        }
+
+        .claude-section::before {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .tool-icon {
+            font-size: 2.2rem;
+            margin-right: 15px;
+        }
+
+        .tool-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .architecture-visual {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .context-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            height: 100%;
+            justify-content: flex-start;
+        }
+
+        .context-box {
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            transition: all 0.8s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            margin: 2px 0;
+        }
+
+        .context-box.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .main-context {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .mode-switch {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            color: white;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(255, 154, 86, 0.3);
+        }
+
+        .context-transfer {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .subagent-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .subagent-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 0.8rem;
+            min-width: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .flow-arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 1px 0;
+            opacity: 0;
+            animation: fadeInArrow 1s ease forwards;
+            flex-shrink: 0;
+        }
+
+        .flow-arrow.delay-1 { animation-delay: 1.5s; }
+        .flow-arrow.delay-2 { animation-delay: 2.5s; }
+        .flow-arrow.delay-3 { animation-delay: 3.5s; }
+
+        @keyframes fadeInArrow {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .parallel-indicator {
+            background: #28a745;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: slideIn 1s ease forwards 4s;
+            z-index: 10;
+        }
+
+        .serial-indicator {
+            background: #dc3545;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: slideIn 1s ease forwards 4s;
+            z-index: 10;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .key-difference {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #ffd700;
+            flex-shrink: 0;
+        }
+
+        .key-difference h4 {
+            color: #ffd700;
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .key-difference p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            height: calc(100vh - 180px);
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                height: auto;
+            }
+            
+            .tool-title {
+                font-size: 1.3rem;
+            }
+            
+            .subagent-box {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .content {
+                height: auto;
+                overflow: visible;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Context Handling: Overview</h1>
+            <p class="subtitle">Two Fundamentally Different Approaches to Context Management</p>
+        </div>
+
+        <div class="content">
+            <div class="comparison-container">
+                <!-- GitHub Copilot Section -->
+                <div class="tool-section copilot-section reveal-on-load">
+                    <div class="tool-header">
+                        <div style="display: flex; align-items: center;">
+                            <span class="tool-icon">🐙</span>
+                            <h2 class="tool-title">GitHub Copilot</h2>
+                        </div>
+                        <div class="serial-indicator">Serial Operation</div>
+                    </div>
+                    
+                    <div class="architecture-visual">
+                        <div class="context-flow">
+                            <div class="context-box main-context" data-delay="0">
+                                💬 Full Conversation Context
+                            </div>
+                            <div class="flow-arrow">⬇️</div>
+                            <div class="context-box mode-switch" data-delay="1">
+                                🔄 Mode Switch (Ask/Edit/Agent)
+                            </div>
+                            <div class="flow-arrow delay-1">⬇️</div>
+                            <div class="context-box context-transfer" data-delay="2">
+                                📦 Complete Context Transfer
+                            </div>
+                            <div class="flow-arrow delay-2">⬇️</div>
+                            <div class="context-box context-transfer" data-delay="3">
+                                ⚡ Single Mode Execution
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="key-difference">
+                        <h4>🔗 Monolithic Context</h4>
+                        <p>Complete context transfers through each stage. Simple but resource-intensive with potential bottlenecks.</p>
+                    </div>
+                </div>
+
+                <!-- Claude Code Section -->
+                <div class="tool-section claude-section reveal-on-load">
+                    <div class="tool-header">
+                        <div style="display: flex; align-items: center;">
+                            <span class="tool-icon">🤖</span>
+                            <h2 class="tool-title">Claude Code</h2>
+                        </div>
+                        <div class="parallel-indicator">Parallel Capable</div>
+                    </div>
+                    
+                    <div class="architecture-visual">
+                        <div class="context-flow">
+                            <div class="context-box main-context" data-delay="0">
+                                🎯 Main Orchestrator Context
+                            </div>
+                            <div class="flow-arrow">⬇️</div>
+                            <div class="context-box mode-switch" data-delay="1">
+                                🚀 Spawn Isolated Subagents
+                            </div>
+                            <div class="flow-arrow delay-1">⬇️</div>
+                            <div class="context-box context-transfer" data-delay="2">
+                                📦 Minimal Context Transfer
+                            </div>
+                            <div class="flow-arrow delay-2">⬇️</div>
+                            <div class="context-box subagent-box" data-delay="3">
+                                <div class="subagent-item">Agent A</div>
+                                <div class="subagent-item">Agent B</div>
+                                <div class="subagent-item">Agent C</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="key-difference">
+                        <h4>🔀 Distributed Context</h4>
+                        <p>Intelligent filtering delivers only relevant context to each agent. Selective result aggregation prevents information overload.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPrevious()">
+                <span>←</span>
+                Back
+            </button>
+            <button class="nav-btn" onclick="goToNext()">
+                Next
+                <span>→</span>
+            </button>
+        </div>
+
+        <div id="notes" class="presenter-notes" style="display: none;">
+            <h3>Presenter Notes</h3>
+            <ul>
+                <li><strong>GitHub Copilot:</strong> Uses ChatModes (Ask/Edit/Agent) with full context transfer</li>
+                <li><strong>Serial Limitation:</strong> Mode switches carry complete conversation history</li>
+                <li><strong>Claude Code Innovation:</strong> Subagents with isolated contexts enable parallelization</li>
+                <li><strong>Context Pollution:</strong> Claude's approach reduces cross-task interference</li>
+                <li><strong>Scalability:</strong> Parallel execution allows handling multiple simultaneous tasks</li>
+                <li><strong>Trade-offs:</strong> Less context sharing vs. better performance and isolation</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate context boxes in sequence based on their data-delay attribute
+            setTimeout(() => {
+                const contextBoxes = document.querySelectorAll('.context-box');
+                contextBoxes.forEach((box) => {
+                    const delay = parseInt(box.dataset.delay) || 0;
+                    setTimeout(() => {
+                        box.classList.add('animate');
+                    }, delay * 1000);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

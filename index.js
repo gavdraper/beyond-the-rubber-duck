@@ -18,6 +18,10 @@ window.slideIndex = {
             path: '03a-context.html'
         },
         {
+            id: '03b-tool-context-handling',
+            path: '03b-tool-context-handling.html'
+        },
+        {
             id: '03-custom-instructions-best-practices',
             path: '03-custom-instructions-best-practices.html'
         },
